@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Exceptions\CustomException;
+use App\Models\User;
+use App\Repository\users\UserRepository;
 use Illuminate\Support\Facades\Auth;
 
 class UserServices
@@ -22,6 +24,15 @@ class UserServices
             return Response($e->getMessage(), 430);
         } catch(\Throwable $e) {
             return Response($e->getMessage(), $e->getCode());
+        }
+    }
+
+    public static function findAll()
+    {
+        try {
+            return (new UserRepository(new User))->findAll();
+        } catch(\Throwable $e) {
+            return Response($e->getMessage(), 430);
         }
     }
 }

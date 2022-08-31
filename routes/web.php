@@ -19,8 +19,26 @@ use App\Http\Controllers\{
 
 Route::get('/', function () {
     return view('login');
-});
+})->name('login');
 
 Route::post('logar', [UserController::class, 'logar'])->name('logar');
 
-Route::get('home', [HomeController::class, 'index'])->name('home');
+Route::middleware('auth')->group(function() {
+    Route::get('home', [HomeController::class, 'index'])->name('home');
+
+    Route::prefix('cadastro')->group(function() {
+        Route::prefix('funcionarios')->group(function() {
+            Route::get('index', [UserController::class, 'index'])->name('user.index');
+        });
+
+        Route::prefix('clientes')->group(function() {
+            Route::get('index', [UserController::class, 'index'])->name('clientes.index');
+        });
+
+        Route::prefix('produtos')->group(function() {
+            Route::get('index', [UserController::class, 'index'])->name('produtos.index');
+        });
+    });
+});
+
+Route::get('logout', [UserController::class, 'logout'])->name('logout');

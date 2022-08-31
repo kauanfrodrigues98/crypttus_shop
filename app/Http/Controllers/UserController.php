@@ -16,7 +16,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $funcionarios = UserServices::findAll();
+
+        return view('funcionarios.index')->with(['users' => $funcionarios]);
     }
 
     /**
@@ -81,5 +83,11 @@ class UserController extends Controller
     public function username()
     {
         return 'usuario';
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return Response()->redirectToRoute('login');
     }
 }
