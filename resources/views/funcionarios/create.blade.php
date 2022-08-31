@@ -5,6 +5,13 @@
 @section('content')
     @include('components.alert_request')
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url()->previous() }}">Funcionários</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Cadastro</li>
+        </ol>
+    </nav>
+
     <form method="post" action="{{ route('user.store') }}">
         @csrf
         <div class="card shadow mb-4">

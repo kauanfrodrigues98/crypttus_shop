@@ -1,0 +1,7 @@
+ol.breadcrumb {
+    background: transparent;
+}
+
+.breadcrumb > li + li:before {
+    content: ">" !important;
+}

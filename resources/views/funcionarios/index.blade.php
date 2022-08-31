@@ -3,9 +3,14 @@
 @section('tab-title', 'Funcionários')
 
 @section('content')
-    <!-- Dropdown Card Example -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Funcionários</li>
+            <li class="breadcrumb-item active" aria-current="page">Relatório</li>
+        </ol>
+    </nav>
+
     <div class="card shadow mb-4">
-        <!-- Card Header - Dropdown -->
         <div
             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Funcionários</h6>
@@ -23,7 +28,6 @@
                 </div>
             </div>
         </div>
-        <!-- Card Body -->
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
