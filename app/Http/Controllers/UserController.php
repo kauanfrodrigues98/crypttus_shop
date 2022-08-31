@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Services\UserServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,15 +22,29 @@ class UserController extends Controller
         return view('funcionarios.index')->with(['users' => $funcionarios]);
     }
 
+    public function create()
+    {
+        return view('funcionarios.create');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\StoreUserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $service = UserServices::store($request);
+
+        if($service->getStatusCode() !== 200)
+        {
+            Session::flash('status', 'danger');
+            Session::flash('message', $service->getContent());
+            return back()->withInput($request->only(['usuario', 'senha']));
+        }
+
+        return Response()->redirectToRoute('user.index');
     }
 
     /**

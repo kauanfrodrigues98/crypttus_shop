@@ -23,6 +23,7 @@ class UserRepository implements UserInterface
     public function store(array $dados)
     {
         // TODO: Implement store() method.
+        return $this->model->create($dados);
     }
 
     public function update(int $id, array $dados)
