@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     UserController,
     HomeController,
+    ClientesController,
 };
 
 /*
@@ -34,7 +35,8 @@ Route::middleware('auth')->group(function() {
         });
 
         Route::prefix('clientes')->group(function() {
-            Route::get('index', [UserController::class, 'index'])->name('clientes.index');
+            Route::get('index', [ClientesController::class, 'index'])->name('clientes.index');
+            Route::get('cadastro', [ClientesController::class, 'create'])->name('clientes.create');
         });
 
         Route::prefix('produtos')->group(function() {
