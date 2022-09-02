@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('cidade', 1000)->nullable();
             $table->string('uf', 2)->nullable();
             $table->string('complemento')->nullable();
+            $table->decimal('vale', 8, 2)->nullable(false)->default(0);
             $table->timestamps();
         });
     }

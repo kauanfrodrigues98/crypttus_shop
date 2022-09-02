@@ -36,6 +36,7 @@
                             <tr>
                                 <th>Nome</th>
                                 <th>E-mail</th>
+                                <th>CPF</th>
                                 <th>Data Nascimento</th>
                                 <th>Celular</th>
                                 <th class="text-center">Ações</th>
@@ -46,7 +47,9 @@
                             <tr>
                                 <td>{{ $cliente->nome }}</td>
                                 <td>{{ $cliente->email }}</td>
-                                <td>{{ Helper::dataHoraSQLparaBR($cliente->created_at) }}</td>
+                                <td>{{ $cliente->cpf }}</td>
+                                <td>{{ Helper::dataSQLparaBR($cliente->data_nascimento) }}</td>
+                                <td>{{ $cliente->celular }}</td>
                                 <td class="text-center">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -65,7 +68,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">Não foram encontrados registros para serem exibidos</td>
+                                <td colspan="4" class="text-center">Não foram encontrados registros para serem exibidos</td>
                             </tr>
                         @endforelse
                         </tbody>

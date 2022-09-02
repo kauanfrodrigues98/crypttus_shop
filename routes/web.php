@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function() {
         Route::prefix('clientes')->group(function() {
             Route::get('index', [ClientesController::class, 'index'])->name('clientes.index');
             Route::get('cadastro', [ClientesController::class, 'create'])->name('clientes.create');
+            Route::post('store', [ClientesController::class, 'store'])->name('clientes.store');
         });
 
         Route::prefix('produtos')->group(function() {

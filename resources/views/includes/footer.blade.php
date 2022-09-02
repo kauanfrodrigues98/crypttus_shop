@@ -33,6 +33,10 @@
 <!-- Custom scripts for all pages-->
 <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 
+<script src="{{ asset('js/funcoes.js') }}"></script>
+
+@yield('scripts')
+
 </body>
 
 </html>

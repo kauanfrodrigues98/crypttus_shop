@@ -37,12 +37,15 @@ class UserController extends Controller
     {
         $service = UserServices::store($request);
 
+        Session::flash('message', $service->getContent());
+
         if($service->getStatusCode() !== 200)
         {
             Session::flash('status', 'danger');
-            Session::flash('message', $service->getContent());
             return back()->withInput($request->only(['usuario', 'senha']));
         }
+
+        Session::flash('status', 'success');
 
         return Response()->redirectToRoute('user.index');
     }

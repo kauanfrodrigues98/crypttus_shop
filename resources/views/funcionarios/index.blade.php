@@ -64,7 +64,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4">Não foram encontrados registros para serem exibidos</td>
+                                    <td colspan="4" class="text-center">Não foram encontrados registros para serem exibidos</td>
                                 </tr>
                             @endforelse
                         </tbody>

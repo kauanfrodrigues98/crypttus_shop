@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FuncoesHelpers;
 use App\Http\Requests\StoreClientesRequest;
 use App\Http\Requests\UpdateClientesRequest;
 use App\Models\Clientes;
 use App\Services\ClientesServices;
+use Illuminate\Support\Facades\Session;
 
 class ClientesController extends Controller
 {
@@ -18,7 +20,7 @@ class ClientesController extends Controller
     {
         $clientes = ClientesServices::findAll();
 
-        return view('clientes.index')->with(['clientes' => []]);
+        return view('clientes.index')->with(['clientes' => $clientes]);
     }
 
     /**
@@ -28,7 +30,7 @@ class ClientesController extends Controller
      */
     public function create()
     {
-        return view('clientes.create');
+        return view('clientes.create')->with(['ufs' => FuncoesHelpers::ESTADOS_BRASILEIROS]);
     }
 
     /**
@@ -39,7 +41,19 @@ class ClientesController extends Controller
      */
     public function store(StoreClientesRequest $request)
     {
-        //
+        $service = ClientesServices::store($request);
+
+        Session::flash('message', $service->getContent());
+
+        if($service->getStatusCode() !== 200)
+        {
+            Session::flash('status', 'danger');
+            return back()->withInput();
+        }
+
+        Session::flash('status', 'success');
+
+        return Response()->redirectToRoute('clientes.index');
     }
 
     /**

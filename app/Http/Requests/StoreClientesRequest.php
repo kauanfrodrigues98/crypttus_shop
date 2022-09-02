@@ -13,7 +13,7 @@ class StoreClientesRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreClientesRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nome' => 'required',
+            'data_nascimento' => 'required',
+            'celular' => 'required',
         ];
     }
 }
