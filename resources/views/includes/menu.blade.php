@@ -4,24 +4,24 @@ const MENUS = [
     [
         'name' => 'Funcionários',
         'route' => 'user.index',
-        'icon' => 'fas fa-fw fa-tachometer-alt',
+        'icon' => 'fas fa-fw fa-user',
         'submenu' => false,
     ],
     [
         'name' => 'Clientes',
         'route' => 'clientes.index',
-        'icon' => 'fas fa-fw fa-chart-area',
+        'icon' => 'fas fa-fw fa-users',
         'submenu' => false,
     ],
     [
         'name' => 'Produtos',
         'route' => '',
-        'icon' => 'fas fa-fw fa-chart-area',
+        'icon' => 'fas fa-fw fa-briefcase',
         'submenu' => 'true',
         'sub' => [
             [
                 'name' => 'Produtos',
-                'route' => 'user.index'
+                'route' => 'produtos.index'
             ],
             [
                 'name' => 'Tamanhos',
@@ -76,7 +76,7 @@ const MENUS = [
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                            aria-expanded="true" aria-controls="collapseTwo">
-                            <i class="fas fa-fw fa-cog"></i>
+                            <i class="{{ $menu['icon'] }}"></i>
                             <span>{{ $menu['name'] }}</span>
                         </a>
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">

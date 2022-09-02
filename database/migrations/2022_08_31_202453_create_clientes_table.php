@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('complemento')->nullable();
             $table->decimal('vale', 8, 2)->nullable(false)->default(0);
             $table->timestamps();
+            $table->softDeletesTz('deleted_at');
         });
     }
 

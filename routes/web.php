@@ -5,6 +5,7 @@ use App\Http\Controllers\{
     UserController,
     HomeController,
     ClientesController,
+    ProdutosController,
 };
 
 /*
@@ -41,7 +42,9 @@ Route::middleware('auth')->group(function() {
         });
 
         Route::prefix('produtos')->group(function() {
-            Route::get('index', [UserController::class, 'index'])->name('produtos.index');
+            Route::get('index', [ProdutosController::class, 'index'])->name('produtos.index');
+            Route::get('cadastro', [ProdutosController::class, 'create'])->name('produtos.create');
+            Route::post('store', [ProdutosController::class, 'store'])->name('produtos.store');
         });
     });
 });
