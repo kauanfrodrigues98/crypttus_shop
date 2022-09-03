@@ -14,7 +14,11 @@ return new class extends Migration {
     {
         Schema::create('cores', function (Blueprint $table) {
             $table->id();
+            $table->string('codigo', 50)->nullable(false)->unique();
+            $table->string('cor', 50)->nullable();
+            $table->string('descricao', 100)->nullable();
             $table->timestamps();
+            $table->softDeletesTz('deleted_at');
         });
     }
 

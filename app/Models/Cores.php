@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Cores extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'codigo',
+        'cor',
+        'descricao',
+    ];
 }

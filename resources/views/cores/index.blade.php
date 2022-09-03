@@ -24,7 +24,7 @@
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                      aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Ações</div>
-                    <a class="dropdown-item" href="{{ route('user.create') }}">Novo Funcionário</a>
+                    <a class="dropdown-item" href="{{ route('cores.create') }}">Nova Cor</a>
                     <a class="dropdown-item" href="#">Exportar PDF</a>
                     <a class="dropdown-item" href="#">Exportar Excel</a>
                 </div>
@@ -36,18 +36,18 @@
                     <table class="table table-sm">
                         <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>E-mail</th>
-                            <th>Criado em</th>
+                            <th>Código</th>
+                            <th>Cor</th>
+                            <th>Descrição</th>
                             <th class="text-center">Ações</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($users as $user)
+                        @forelse($cores as $cor)
                             <tr>
-                                <td>{{ $user->nome }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ Helper::dataHoraSQLparaBR($user->created_at) }}</td>
+                                <td>{{ $cor->codigo }}</td>
+                                <td>{{ $cor->cor }}</td>
+                                <td>{{ $cor->descricao }}</td>
                                 <td class="text-center">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"

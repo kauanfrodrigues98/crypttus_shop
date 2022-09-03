@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCoresRequest;
 use App\Http\Requests\UpdateCoresRequest;
 use App\Models\Cores;
+use App\Services\CoresServices;
+use Illuminate\Support\Facades\Session;
 
 class CoresController extends Controller
 {
@@ -15,7 +17,9 @@ class CoresController extends Controller
      */
     public function index()
     {
-        //
+        $cores = CoresServices::findAll();
+
+        return view('cores.index')->with(['cores' => $cores]);
     }
 
     /**
@@ -25,7 +29,7 @@ class CoresController extends Controller
      */
     public function create()
     {
-        //
+        return view('cores.create');
     }
 
     /**
@@ -36,7 +40,18 @@ class CoresController extends Controller
      */
     public function store(StoreCoresRequest $request)
     {
-        //
+        $service = CoresServices::store($request);
+
+        Session::flash('message', $service->getContent());
+
+        if ($service->getStatusCode() !== 200) {
+            Session::flash('status', 'danger');
+            return back();
+        }
+
+        Session::flash('status', 'success');
+
+        return Response()->redirectToRoute('cores.index');
     }
 
     /**
