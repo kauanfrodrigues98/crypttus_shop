@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Repository\users;
+namespace App\Repository\tamanhos;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class UserRepository implements UserInterface
+class TamanhosRepository implements TamanhosInterface
 {
     private $model;
 
@@ -14,10 +13,10 @@ class UserRepository implements UserInterface
         $this->model = $model;
     }
 
-    public function findAll(): Collection
+    public function findAll()
     {
         // TODO: Implement findAll() method.
-        return $this->model->select('id', 'nome', 'email', 'created_at')->get();
+        return $this->model->select('id', 'codigo', 'tamanho', 'descricao')->get();
     }
 
     public function store(array $dados)
@@ -34,10 +33,5 @@ class UserRepository implements UserInterface
     public function destroy(int $id)
     {
         // TODO: Implement destroy() method.
-    }
-
-    public function findOne(int $id)
-    {
-        // TODO: Implement findOne() method.
     }
 }

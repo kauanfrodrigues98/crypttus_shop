@@ -16,7 +16,7 @@ class ProdutosRepository implements ProdutosInterface
     public function findAll()
     {
         // TODO: Implement findAll() method.
-        return $this->model->get();
+        return $this->model->select('id', 'codigo', 'nome', 'preco_compra', 'preco_venda', 'colecoes_id')->get();
     }
 
     public function store(array $dados)

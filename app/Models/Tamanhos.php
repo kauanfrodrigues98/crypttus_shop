@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Colecoes extends Model
+class Tamanhos extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'nome',
+        'codigo',
+        'tamanho',
+        'descricao',
     ];
-
-    public function produtos()
-    {
-        return $this->hasMany(Produtos::class);
-    }
 }

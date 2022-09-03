@@ -8,4 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Produtos extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'codigo',
+        'nome',
+        'descricao',
+        'colecoes_id',
+        'preco_compra',
+        'preco_venda',
+    ];
+
+    protected $hidden = [
+        'colecoes_id'
+    ];
+
+    public function colecoes()
+    {
+        return $this->belongsTo(Colecoes::class, 'colecoes_id', 'id');
+    }
 }

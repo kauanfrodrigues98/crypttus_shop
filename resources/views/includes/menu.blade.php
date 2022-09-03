@@ -25,11 +25,11 @@ const MENUS = [
             ],
             [
                 'name' => 'Tamanhos',
-                'route' => 'user.index'
+                'route' => 'tamanhos.index'
             ],
             [
                 'name' => 'Cores',
-                'route' => 'user.index'
+                'route' => 'cores.index'
             ],
             [
                 'name' => 'Código Grade',

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProdutosRequest;
-use App\Http\Requests\UpdateProdutosRequest;
-use App\Models\Produtos;
-use App\Services\ProdutosServices;
+use App\Http\Requests\StoreTamanhosRequest;
+use App\Http\Requests\UpdateTamanhosRequest;
+use App\Models\Tamanhos;
+use App\Services\TamanhosServices;
 use Illuminate\Support\Facades\Session;
 
-class ProdutosController extends Controller
+class TamanhosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,9 @@ class ProdutosController extends Controller
      */
     public function index()
     {
-        $produtos = ProdutosServices::findAll();
+        $tamanhos = TamanhosServices::findAll();
 
-        return view('produtos.index')->with(['produtos' => $produtos]);
+        return view('tamanhos.index')->with(['tamanhos' => $tamanhos]);
     }
 
     /**
@@ -29,39 +29,38 @@ class ProdutosController extends Controller
      */
     public function create()
     {
-        return view('produtos.create');
+        return view('tamanhos.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \App\Http\Requests\StoreProdutosRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param \App\Http\Requests\StoreTamanhosRequest $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(StoreProdutosRequest $request)
+    public function store(StoreTamanhosRequest $request)
     {
-
-        $service = ProdutosServices::store($request);
+        $service = TamanhosServices::store($request);
 
         Session::flash('message', $service->getContent());
 
-        if ($service->getStatusCode() !== 200) {
+        if (!$service) {
             Session::flash('status', 'danger');
             return back();
         }
 
         Session::flash('status', 'success');
 
-        return Response()->redirectToRoute('produtos.index');
+        return Response()->redirectToRoute('tamanhos.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Produtos  $produtos
+     * @param \App\Models\Tamanhos $tamanhos
      * @return \Illuminate\Http\Response
      */
-    public function show(Produtos $produtos)
+    public function show(Tamanhos $tamanhos)
     {
         //
     }
@@ -69,10 +68,10 @@ class ProdutosController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Produtos  $produtos
+     * @param \App\Models\Tamanhos $tamanhos
      * @return \Illuminate\Http\Response
      */
-    public function edit(Produtos $produtos)
+    public function edit(Tamanhos $tamanhos)
     {
         //
     }
@@ -80,11 +79,11 @@ class ProdutosController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateProdutosRequest  $request
-     * @param  \App\Models\Produtos  $produtos
+     * @param \App\Http\Requests\UpdateTamanhosRequest $request
+     * @param \App\Models\Tamanhos $tamanhos
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProdutosRequest $request, Produtos $produtos)
+    public function update(UpdateTamanhosRequest $request, Tamanhos $tamanhos)
     {
         //
     }
@@ -92,12 +91,11 @@ class ProdutosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Produtos  $produtos
+     * @param \App\Models\Tamanhos $tamanhos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Produtos $produtos)
+    public function destroy(Tamanhos $tamanhos)
     {
-        ;
         //
     }
 }

@@ -48,4 +48,17 @@ class FuncoesHelpers
     {
         return date('d/m/Y', strtotime($data));
     }
+
+    public static function moedaBRparaSQL(string $value)
+    {
+        $verificaPonto = ".";
+        if (strpos("[" . $value . "]", "$verificaPonto")):
+            $value = str_replace('.', '', $value);
+            $value = str_replace(',', '.', $value);
+        else:
+            $value = str_replace(',', '.', $value);
+        endif;
+
+        return $value;
+    }
 }
