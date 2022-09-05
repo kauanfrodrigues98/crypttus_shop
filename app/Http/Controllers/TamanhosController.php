@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateTamanhosRequest;
 use App\Models\Tamanhos;
 use App\Services\TamanhosServices;
 use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\Request;
 
 class TamanhosController extends Controller
 {
@@ -97,5 +98,10 @@ class TamanhosController extends Controller
     public function destroy(Tamanhos $tamanhos)
     {
         //
+    }
+
+    public function get(Request $request)
+    {
+        return TamanhosServices::get($request);
     }
 }

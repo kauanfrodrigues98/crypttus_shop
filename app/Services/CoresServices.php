@@ -37,4 +37,11 @@ class CoresServices
             return Response($e->getMessage(), 430);
         }
     }
+
+    public static function get($request)
+    {
+        $search = $request->search ?? '';
+
+        return (new CoresRepository(new Cores))->get($search);
+    }
 }

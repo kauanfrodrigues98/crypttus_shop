@@ -1,9 +1,17 @@
+const empty = (value) => {
+    if (value == '' || value == undefined || value == null) {
+        return true
+    }
+
+    return false
+}
+
 function limpaFormularioCep() {
     //Limpa valores do formulário de cep.
-    document.getElementById('logradouro').value=("");
-    document.getElementById('bairro').value=("");
-    document.getElementById('cidade').value=("");
-    document.getElementById('uf').value=("");
+    document.getElementById('logradouro').value = ("");
+    document.getElementById('bairro').value = ("");
+    document.getElementById('cidade').value = ("");
+    document.getElementById('uf').value = ("");
     // document.getElementById('ibge').value=("");
 }
 

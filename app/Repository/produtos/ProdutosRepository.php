@@ -34,4 +34,15 @@ class ProdutosRepository implements ProdutosInterface
     {
         // TODO: Implement destroy() method.
     }
+
+    public function get(string $search)
+    {
+        if (!empty($search)) {
+            return $this->model->select('codigo', 'nome')
+                ->where('codigo', 'LIKE', "%" . $search . "%")
+                ->orWhere('nome', 'LIKE', "%" . $search . "%")
+                ->get();
+        }
+        return $this->model->select('codigo', 'nome')->get();
+    }
 }

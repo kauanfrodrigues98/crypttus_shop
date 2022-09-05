@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProdutosRequest;
-use App\Http\Requests\UpdateProdutosRequest;
-use App\Models\Produtos;
-use App\Services\ProdutosServices;
+use App\Http\Requests\StoreCodigoGradesRequest;
+use App\Http\Requests\UpdateCodigoGradesRequest;
+use App\Models\CodigoGrades;
+use App\Services\CodigoGradesServices;
 use Illuminate\Support\Facades\Session;
-use Symfony\Component\HttpFoundation\Request;
 
-class ProdutosController extends Controller
+class CodigoGradesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +17,9 @@ class ProdutosController extends Controller
      */
     public function index()
     {
-        $produtos = ProdutosServices::findAll();
+        $grades = CodigoGradesServices::findAll();
 
-        return view('produtos.index')->with(['produtos' => $produtos]);
+        return view('codigo_grade.index')->with(['grades' => $grades]);
     }
 
     /**
@@ -30,19 +29,18 @@ class ProdutosController extends Controller
      */
     public function create()
     {
-        return view('produtos.create');
+        return view('codigo_grade.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \App\Http\Requests\StoreProdutosRequest $request
+     * @param \App\Http\Requests\StoreCodigoGradesRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreProdutosRequest $request)
+    public function store(StoreCodigoGradesRequest $request)
     {
-
-        $service = ProdutosServices::store($request);
+        $service = CodigoGradesServices::store($request);
 
         Session::flash('message', $service->getContent());
 
@@ -53,16 +51,16 @@ class ProdutosController extends Controller
 
         Session::flash('status', 'success');
 
-        return Response()->redirectToRoute('produtos.index');
+        return Response()->redirectToRoute('codigo_grade.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Produtos  $produtos
+     * @param \App\Models\CodigoGrades $codigoGrades
      * @return \Illuminate\Http\Response
      */
-    public function show(Produtos $produtos)
+    public function show(CodigoGrades $codigoGrades)
     {
         //
     }
@@ -70,10 +68,10 @@ class ProdutosController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Produtos  $produtos
+     * @param \App\Models\CodigoGrades $codigoGrades
      * @return \Illuminate\Http\Response
      */
-    public function edit(Produtos $produtos)
+    public function edit(CodigoGrades $codigoGrades)
     {
         //
     }
@@ -81,11 +79,11 @@ class ProdutosController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateProdutosRequest  $request
-     * @param  \App\Models\Produtos  $produtos
+     * @param \App\Http\Requests\UpdateCodigoGradesRequest $request
+     * @param \App\Models\CodigoGrades $codigoGrades
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProdutosRequest $request, Produtos $produtos)
+    public function update(UpdateCodigoGradesRequest $request, CodigoGrades $codigoGrades)
     {
         //
     }
@@ -93,17 +91,11 @@ class ProdutosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Produtos $produtos
+     * @param \App\Models\CodigoGrades $codigoGrades
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Produtos $produtos)
+    public function destroy(CodigoGrades $codigoGrades)
     {
-        ;
         //
-    }
-
-    public function get(Request $request)
-    {
-        return ProdutosServices::get($request);
     }
 }

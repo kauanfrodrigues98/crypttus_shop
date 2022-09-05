@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\{ClientesController,
+    CodigoGradesController,
     CoresController,
     HomeController,
     ProdutosController,
@@ -59,6 +60,18 @@ Route::middleware('auth')->group(function() {
             Route::get('cadastro', [CoresController::class, 'create'])->name('cores.create');
             Route::post('store', [CoresController::class, 'store'])->name('cores.store');
         });
+
+        Route::prefix('codigo_grades')->group(function () {
+            Route::get('index', [CodigoGradesController::class, 'index'])->name('codigo_grade.index');
+            Route::get('cadastro', [CodigoGradesController::class, 'create'])->name('codigo_grade.create');
+            Route::post('store', [CodigoGradesController::class, 'store'])->name('codigo_grade.store');
+        });
+    });
+
+    Route::prefix('get')->group(function () {
+        Route::post('cores', [CoresController::class, 'get'])->name('get.cores');
+        Route::post('tamanhos', [TamanhosController::class, 'get'])->name('get.tamanhos');
+        Route::post('produtos', [ProdutosController::class, 'get'])->name('get.produtos');
     });
 });
 

@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateCoresRequest;
 use App\Models\Cores;
 use App\Services\CoresServices;
 use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\Request;
 
 class CoresController extends Controller
 {
@@ -97,5 +98,10 @@ class CoresController extends Controller
     public function destroy(Cores $cores)
     {
         //
+    }
+
+    public function get(Request $request)
+    {
+        return CoresServices::get($request);
     }
 }

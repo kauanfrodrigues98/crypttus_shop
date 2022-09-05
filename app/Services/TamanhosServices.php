@@ -37,4 +37,11 @@ class TamanhosServices
             return Response($e->getMessage(), 430);
         }
     }
+
+    public static function get($request)
+    {
+        $search = $request->search ?? '';
+
+        return (new TamanhosRepository(new Tamanhos))->get($search);
+    }
 }

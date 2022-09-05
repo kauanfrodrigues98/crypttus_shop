@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository\produtos;
+namespace App\Repository\codigo_grades;
 
-interface ProdutosInterface
+interface CodigoGradesInterface
 {
     public function findAll();
 
@@ -11,6 +11,4 @@ interface ProdutosInterface
     public function update(int $id, array $dados);
 
     public function destroy(int $id);
-
-    public function get(string $search);
 }

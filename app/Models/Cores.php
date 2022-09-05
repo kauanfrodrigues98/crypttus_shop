@@ -14,4 +14,9 @@ class Cores extends Model
         'cor',
         'descricao',
     ];
+
+    public function produto()
+    {
+        return $this->belongsToMany(Produtos::class, 'produtos_id', 'id');
+    }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repository\cores;
+namespace App\Repository\codigo_grades;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CoresRepository implements CoresInterface
+class CodigoGradesRepository implements CodigoGradesInterface
 {
     private $model;
 
@@ -16,7 +16,7 @@ class CoresRepository implements CoresInterface
     public function findAll()
     {
         // TODO: Implement findAll() method.
-        return $this->model->select('id', 'codigo', 'cor', 'descricao')->get();
+        return $this->model->select('id', 'codigo_grade', 'cores_id', 'tamanhos_id')->get();
     }
 
     public function store(array $dados)
@@ -33,17 +33,5 @@ class CoresRepository implements CoresInterface
     public function destroy(int $id)
     {
         // TODO: Implement destroy() method.
-    }
-
-    public function get(string $search = '')
-    {
-        if (!empty($search)) {
-            return $this->model->select('codigo', 'cor')
-                ->where('codigo', 'LIKE', "%" . $search . "%")
-                ->orWhere('cor', 'LIKE', "%" . $search . "%")
-                ->get();
-        }
-        return $this->model->select('codigo', 'cor')->get();
-
     }
 }

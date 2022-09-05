@@ -14,4 +14,9 @@ class Tamanhos extends Model
         'tamanho',
         'descricao',
     ];
+
+    public function produto()
+    {
+        return $this->belongsToMany(Produtos::class, 'produtos_id', 'id');
+    }
 }

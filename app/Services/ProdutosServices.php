@@ -35,10 +35,17 @@ class ProdutosServices
             }
 
             return Response('Produto cadastrado com sucesso.', 200);
-        } catch(CustomException $e) {
+        } catch (CustomException $e) {
             return Response($e->getMessage(), 430);
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             return Response($e->getMessage(), 430);
         }
+    }
+
+    public static function get($request)
+    {
+        $search = $request->search ?? '';
+
+        return (new ProdutosRepository(new Produtos))->get($search);
     }
 }

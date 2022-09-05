@@ -34,4 +34,15 @@ class TamanhosRepository implements TamanhosInterface
     {
         // TODO: Implement destroy() method.
     }
+
+    public function get(string $search)
+    {
+        if (!empty($search)) {
+            return $this->model->select('codigo', 'tamanho')
+                ->where('codigo', 'LIKE', "%" . $search . "%")
+                ->orWhere('tamanho', 'LIKE', "%" . $search . "%")
+                ->get();
+        }
+        return $this->model->select('codigo', 'tamanho')->get();
+    }
 }

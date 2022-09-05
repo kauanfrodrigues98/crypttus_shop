@@ -5,3 +5,7 @@ ol.breadcrumb {
 .breadcrumb > li + li:before {
     content: ">" !important;
 }
+
+.btn_alinhado {
+    margin-top: 30px;
+}
