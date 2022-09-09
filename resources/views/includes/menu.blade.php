@@ -37,6 +37,12 @@ const MENUS = [
             ],
         ],
     ],
+    [
+        'name' => 'Vendas',
+        'route' => 'vendas.index',
+        'icon' => 'fas fa-solid fa-basket-shopping',
+        'submenu' => false,
+    ],
 ];
 
 @endphp

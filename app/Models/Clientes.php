@@ -23,4 +23,9 @@ class Clientes extends Model
         'uf',
         'complemento',
     ];
+
+    public function venda()
+    {
+        return $this->hasMany(Vendas::class, 'clientes_id', 'id');
+    }
 }
