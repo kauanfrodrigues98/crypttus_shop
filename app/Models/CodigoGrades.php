@@ -22,13 +22,18 @@ class CodigoGrades extends Model
         'tamanhos_id',
     ];
 
+    public function produto()
+    {
+        return $this->belongsTo(Produtos::class, 'produtos_id', 'id');
+    }
+
     public function cor()
     {
-        return $this->hasOne(Cores::class, 'produtos_id', 'id');
+        return $this->belongsTo(Cores::class, 'cores_id', 'id');
     }
 
     public function tamanho()
     {
-        return $this->hasOne(Tamanhos::class, 'produtos_id', 'id');
+        return $this->belongsTo(Tamanhos::class, 'tamanhos_id', 'id');
     }
 }

@@ -9,3 +9,9 @@ ol.breadcrumb {
 .btn_alinhado {
     margin-top: 30px;
 }
+
+.pagination_center {
+    display: flex !important;
+    justify-content: center !important;
+    justify-items: center !important;
+}

@@ -26,10 +26,11 @@ class CodigoGradesServices
         DB::beginTransaction();
         try {
             $index = 0;
+
             foreach ($request->codigo_grade as $grade) {
-                $dados['produtos_id'] = (Produtos::select('id')->where('codigo', $request->produto[$index])->first())->id;
-                $dados['cores_id'] = (Cores::select('id')->where('codigo', $request->cor[$index])->first())->id;
-                $dados['tamanhos_id'] = (Tamanhos::select('id')->where('codigo', $request->tamanho[$index])->first())->id;
+                $dados['produtos_id'] = Produtos::select('id')->where('codigo', $request->produto[$index])->first()->id;
+                $dados['cores_id'] = Cores::select('id')->where('codigo', $request->cor[$index])->first()->id;
+                $dados['tamanhos_id'] = Tamanhos::select('id')->where('codigo', $request->tamanho[$index])->first()->id;
                 $dados['codigo_grade'] = $grade;
 
                 $repository = (new CodigoGradesRepository(new CodigoGrades()))->store($dados);

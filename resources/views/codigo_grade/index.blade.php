@@ -36,6 +36,8 @@
                     <table class="table table-sm">
                         <thead>
                         <tr>
+                            <th>Código Base</th>
+                            <th>Nome</th>
                             <th>Código Grade</th>
                             <th>Cor</th>
                             <th>Tamanho</th>
@@ -45,9 +47,11 @@
                         <tbody>
                         @forelse($grades as $grade)
                             <tr>
+                                <td>{{ $grade->produto->codigo }}</td>
+                                <td>{{ $grade->produto->nome }}</td>
                                 <td>{{ $grade->codigo_grade }}</td>
-                                <td>{{ $grade->cor }}</td>
-                                <td>{{ $grade->tamanho }}</td>
+                                <td>{{ $grade->cor->cor }}</td>
+                                <td>{{ $grade->tamanho->tamanho }}</td>
                                 <td class="text-center">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -72,6 +76,8 @@
                         @endforelse
                         </tbody>
                     </table>
+                    <hr>
+                    @include('components.pagination')
                 </div>
             </div>
         </div>

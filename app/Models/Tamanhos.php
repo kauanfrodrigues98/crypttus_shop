@@ -15,8 +15,8 @@ class Tamanhos extends Model
         'descricao',
     ];
 
-    public function produto()
+    public function codigoGrade()
     {
-        return $this->belongsToMany(Produtos::class, 'produtos_id', 'id');
+        return $this->hasMany(CodigoGrades::class, 'tamanhos_id', 'id');
     }
 }

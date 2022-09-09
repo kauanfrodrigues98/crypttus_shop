@@ -15,8 +15,8 @@ class Cores extends Model
         'descricao',
     ];
 
-    public function produto()
+    public function codigoGrade()
     {
-        return $this->belongsToMany(Produtos::class, 'produtos_id', 'id');
+        return $this->hasMany(CodigoGrades::class, 'cores_id', 'id');
     }
 }
