@@ -78,6 +78,9 @@ Route::prefix('get')->group(function () {
     Route::post('cores', [CoresController::class, 'get'])->name('get.cores');
     Route::post('tamanhos', [TamanhosController::class, 'get'])->name('get.tamanhos');
     Route::post('produtos', [ProdutosController::class, 'get'])->name('get.produtos');
+    Route::post('detalhes/produto', [ProdutosController::class, 'getDetalhes'])->name('get.detalhes.produtos');
+    Route::post('funcionarios', [UserController::class, 'get'])->name('get.funcionarios');
+    Route::post('clientes', [ClientesController::class, 'get'])->name('get.clientes');
 });
 
 Route::get('logout', [UserController::class, 'logout'])->name('logout');

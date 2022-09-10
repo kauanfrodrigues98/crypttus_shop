@@ -13,4 +13,6 @@ interface ProdutosInterface
     public function destroy(int $id);
 
     public function get(string $search);
+
+    public function getDetalhes(int $id);
 }

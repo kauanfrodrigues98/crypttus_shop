@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateClientesRequest;
 use App\Models\Clientes;
 use App\Services\ClientesServices;
 use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\Request;
 
 class ClientesController extends Controller
 {
@@ -93,11 +94,16 @@ class ClientesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Clientes  $clientes
+     * @param \App\Models\Clientes $clientes
      * @return \Illuminate\Http\Response
      */
     public function destroy(Clientes $clientes)
     {
         //
+    }
+
+    public function get(Request $request)
+    {
+        return ClientesServices::get($request);
     }
 }

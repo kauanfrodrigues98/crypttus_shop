@@ -16,8 +16,7 @@ class VendasRepository implements VendasInterface
 
     public function findAll()
     {
-        // TODO: Implement findAll() method.
-        return $this->model->select('id', 'clientes_id', 'users_id', 'desconto_real', 'desconto_perc', 'subtotal', 'total')->paignate(15);
+        return $this->model->select('id', 'clientes_id', 'users_id', 'desconto_real', 'desconto_perc', 'subtotal', 'total')->paginate(15);
     }
 
     public function store(array $dados)

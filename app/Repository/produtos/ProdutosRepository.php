@@ -45,4 +45,9 @@ class ProdutosRepository implements ProdutosInterface
         }
         return $this->model->select('codigo', 'nome')->get();
     }
+
+    public function getDetalhes(int $codigo)
+    {
+        return $this->model->select('id', 'codigo', 'preco_venda')->where(['codigo' => $codigo])->first();
+    }
 }

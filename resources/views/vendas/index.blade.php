@@ -15,7 +15,7 @@
     <div class="card shadow mb-4">
         <div
             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Códigos Grade</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Vendas</h6>
             <div class="dropdown no-arrow">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -24,7 +24,7 @@
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                      aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Ações</div>
-                    <a class="dropdown-item" href="{{ route('codigo_grade.create') }}">Novo Código Grade</a>
+                    <a class="dropdown-item" href="{{ route('vendas.create') }}">Nova Venda</a>
                     <a class="dropdown-item" href="#">Exportar PDF</a>
                     <a class="dropdown-item" href="#">Exportar Excel</a>
                 </div>
@@ -70,7 +70,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">Não foram encontrados registros para serem
+                                <td colspan="7" class="text-center">Não foram encontrados registros para serem
                                     exibidos
                                 </td>
                             </tr>

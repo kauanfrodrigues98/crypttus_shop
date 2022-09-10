@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Exceptions\CustomException;
-use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use App\Repository\users\UserRepository;
 use Illuminate\Support\Facades\Auth;
@@ -54,9 +53,20 @@ class UserServices
             }
 
             return Response('Funcionário cadastrado com sucesso.', 200);
-        } catch(CustomException $e) {
+        } catch (CustomException $e) {
             return Response($e->getMessage(), 430);
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
+            return Response($e->getMessage(), 430);
+        }
+    }
+
+    public static function get($request)
+    {
+        try {
+            $search = $request->search ?? '';
+
+            return (new UserRepository(new User))->get($search);
+        } catch (\Exception $e) {
             return Response($e->getMessage(), 430);
         }
     }

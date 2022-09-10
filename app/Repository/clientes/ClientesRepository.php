@@ -34,4 +34,14 @@ class ClientesRepository implements ClientesInterface
     {
         // TODO: Implement destroy() method.
     }
+
+    public function get(string $search)
+    {
+        if (!empty($search)) {
+            return $this->model->select('id', 'nome')
+                ->where('nome', 'LIKE', "%" . $search . "%")
+                ->get();
+        }
+        return $this->model->select('id', 'nome')->get();
+    }
 }

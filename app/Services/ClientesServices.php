@@ -41,10 +41,17 @@ class ClientesServices
             }
 
             return Response('Funcionário cadastrado com sucesso.', 200);
-        } catch(CustomException $e) {
+        } catch (CustomException $e) {
             return Response($e->getMessage(), 430);
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             return Response($e->getMessage(), 430);
         }
+    }
+
+    public static function get($request)
+    {
+        $search = $request->search ?? '';
+
+        return (new ClientesRepository(new Clientes()))->get($search);
     }
 }

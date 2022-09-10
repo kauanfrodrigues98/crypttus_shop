@@ -106,4 +106,9 @@ class ProdutosController extends Controller
     {
         return ProdutosServices::get($request);
     }
+
+    public function getDetalhes(Request $request)
+    {
+        return ProdutosServices::getDetalhes($request);
+    }
 }

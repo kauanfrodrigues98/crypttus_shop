@@ -48,4 +48,11 @@ class ProdutosServices
 
         return (new ProdutosRepository(new Produtos))->get($search);
     }
+
+    public static function getDetalhes($request)
+    {
+        $codigo = $request->codigo;
+
+        return (new ProdutosRepository(new Produtos))->getDetalhes($codigo);
+    }
 }
