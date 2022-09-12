@@ -48,7 +48,6 @@ $(document).ready(function () {
                 _token: $("input[name='_token']").val()
             },
             success: function (data) {
-                console.log(data)
                 $("#quantidade").val(1)
                 $("#preco_unitario").val(number_format(data.preco_venda, 2, ',', '.'))
                 $("#subtotal").val(number_format(data.preco_venda, 2, ',', '.'))
@@ -165,8 +164,20 @@ const adicionar = () => {
     let produto = $("#produto").val()
     let quantidade = $("#quantidade").val()
     let preco_unit = $("#preco_unitario").val()
-    let desconto_real = $("#desconto_real").val()
+    let desconto_real = !empty($("#desconto_real").val()) ? $("#desconto_real").val() : '0,00'
     let subtotal = $("#subtotal").val()
 
+    let row = ''
 
+    row += '<tr>'
+    row += '<td>' + produto + '</td>'
+    row += '<td>' + produto + '</td>'
+    row += '<td>' + quantidade + '</td>'
+    row += '<td>' + preco_unit + '</td>'
+    row += '<td>' + desconto_real + '</td>'
+    row += '<td>' + subtotal + '</td>'
+    row += '<td><button type="button" class="btn btn-sm btn-danger">Remover</button></td>'
+    row += '</tr>'
+
+    $("#tabela_produtos tbody").append(row)
 }

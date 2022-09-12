@@ -74,7 +74,8 @@
                         <input type="text" name="subtotal" id="subtotal" class="form-control form-control-sm">
                     </div>
                     <div class="col-md-3 btn_alinhado">
-                        <button type="button" class="btn btn-sm btn-primary btn-block">Adicionar</button>
+                        <button type="button" class="btn btn-sm btn-primary btn-block" onclick="adicionar()">Adicionar
+                        </button>
                     </div>
                 </div>
 
@@ -94,6 +95,7 @@
                                 <th></th>
                             </tr>
                             </thead>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
