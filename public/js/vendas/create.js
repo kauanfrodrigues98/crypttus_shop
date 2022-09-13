@@ -25,7 +25,7 @@ $(document).ready(function () {
                     results: data.map(function (item) {
                         return {
                             id: item.codigo,
-                            text: item.codigo + ' - ' + item.nome
+                            text: item.codigo + ' - ' + item.descricao
                         }
                     }),
                     pagination: {
@@ -48,6 +48,8 @@ $(document).ready(function () {
                 _token: $("input[name='_token']").val()
             },
             success: function (data) {
+                $("#cod_grade").val(data.codigo_grade)
+                $("#descricao_hidden").val(data.descricao)
                 $("#quantidade").val(1)
                 $("#preco_unitario").val(number_format(data.preco_venda, 2, ',', '.'))
                 $("#subtotal").val(number_format(data.preco_venda, 2, ',', '.'))
@@ -161,7 +163,8 @@ const calculaSubtotal = () => {
 }
 
 const adicionar = () => {
-    let produto = $("#produto").val()
+    let codigo = $("#cod_grade").val()
+    let descricao = $("#descricao_hidden").val()
     let quantidade = $("#quantidade").val()
     let preco_unit = $("#preco_unitario").val()
     let desconto_real = !empty($("#desconto_real").val()) ? $("#desconto_real").val() : '0,00'
@@ -170,8 +173,8 @@ const adicionar = () => {
     let row = ''
 
     row += '<tr>'
-    row += '<td>' + produto + '</td>'
-    row += '<td>' + produto + '</td>'
+    row += '<td>' + codigo + '</td>'
+    row += '<td>' + descricao + '</td>'
     row += '<td>' + quantidade + '</td>'
     row += '<td>' + preco_unit + '</td>'
     row += '<td>' + desconto_real + '</td>'
@@ -180,4 +183,14 @@ const adicionar = () => {
     row += '</tr>'
 
     $("#tabela_produtos tbody").append(row)
+
+    calculaTotal()
+}
+
+const calculaTotal = () => {
+    let tabela = $("#tabela_produtos")
+
+    tabela.find('tbody').find('tr').map(function () {
+        console.log(tabela.find('tbody').find('tr').find('td').eq(5).text())
+    })
 }

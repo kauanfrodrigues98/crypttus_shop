@@ -14,5 +14,5 @@ interface ProdutosInterface
 
     public function get(string $search);
 
-    public function getDetalhes(int $id);
+    public function getDetalhes(string $id);
 }

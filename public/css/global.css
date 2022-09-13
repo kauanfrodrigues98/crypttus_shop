@@ -15,3 +15,16 @@ ol.breadcrumb {
     justify-content: center !important;
     justify-items: center !important;
 }
+
+.centralizado {
+    text-align: center !important;
+}
+
+.lblCifrao {
+    font-weight: 700;
+}
+
+.spanTotal {
+    font-size: 40px;
+    font-weight: 700;
+}

@@ -18,6 +18,10 @@
 
     <form method="post" action="{{ route('codigo_grade.store') }}">
         @csrf
+
+        <input type="hidden" id="cod_grade">
+        <input type="hidden" id="descricao_hidden">
+
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Dados Principais</h6>
@@ -25,12 +29,13 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="funcionario">Funcionário</label>
-                        <select name="funcionario" id="funcionario" class="custom-select custom-select-sm"></select>
+                        <label for="funcionario">Funcionário<span class="text-danger">*</span></label>
+                        <select name="funcionario" id="funcionario" class="custom-select custom-select-sm"
+                                required></select>
                     </div>
                     <div class="col-md-6">
-                        <label for="cliente">Cliente</label>
-                        <select name="cliente" id="cliente" class="custom-select custom-select-sm"></select>
+                        <label for="cliente">Cliente<span class="text-danger">*</span></label>
+                        <select name="cliente" id="cliente" class="custom-select custom-select-sm" required></select>
                     </div>
                 </div>
             </div>
@@ -97,6 +102,12 @@
                             </thead>
                             <tbody></tbody>
                         </table>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-12 centralizado">
+                        <label class="lblCifrao">R$&nbsp;</label><span class="spanTotal">0,00</span>
                     </div>
                 </div>
             </div>
