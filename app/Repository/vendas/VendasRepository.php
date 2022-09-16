@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class VendasRepository implements VendasInterface
 {
-
     private $model;
 
     public function __construct(Model $model)
@@ -16,12 +15,14 @@ class VendasRepository implements VendasInterface
 
     public function findAll()
     {
-        return $this->model->select('id', 'clientes_id', 'users_id', 'desconto_real', 'desconto_perc', 'subtotal', 'total')->paginate(15);
+        return $this->model->select('id', 'clientes_id', 'user_id', 'desconto_real', 'desconto_perc', 'subtotal', 'total', 'status', 'created_at')
+            ->whereBetween('created_at', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])
+            ->paginate(15);
     }
 
     public function store(array $dados)
     {
-        // TODO: Implement store() method.
+        return $this->model->create($dados);
     }
 
     public function update(int $id, array $dados)

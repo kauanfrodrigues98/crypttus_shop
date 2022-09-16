@@ -129,28 +129,28 @@ $(document).ready(function () {
     });
 });
 
-const calculaDesconto = (flag) => {
-    if (flag === 1) {
-        let desconto_real = moedaBRparaSQL($("#desconto_real").val())
-        let quantidade = $("#quantidade").val()
-        let preco_unitario = moedaBRparaSQL($("#preco_unitario").val())
-        let subtotal = quantidade * preco_unitario
-        let desconto = subtotal - desconto_real
-        let desc_perc = subtotal * (subtotal / 100)
+const calculaDescontoReal = () => {
+    let desconto_real = moedaBRparaSQL($("#desconto_real").val())
+    let quantidade = $("#quantidade").val()
+    let preco_unitario = moedaBRparaSQL($("#preco_unitario").val())
+    let subtotal = quantidade * preco_unitario
+    let desc_perc = (desconto_real / subtotal) * 100
+    subtotal = subtotal - desconto_real
 
-        $("#desconto_perc").val(number_format(desc_perc, 2, ',', '.'))
-        $("#subtotal").val(number_format(desconto, 2, ',', '.'))
-    } else {
-        let desconto_perc = moedaBRparaSQL($("#desconto_perc").val())
-        let quantidade = $("#quantidade").val()
-        let preco_unitario = moedaBRparaSQL($("#preco_unitario").val())
-        let subtotal = quantidade * preco_unitario
-        let desconto = subtotal * (desconto_perc / 100)
-        subtotal = subtotal - desconto
+    $("#desconto_perc").val(number_format(desc_perc, 2, ',', '.'))
+    $("#subtotal").val(number_format(subtotal, 2, ',', '.'))
+}
 
-        $("#desconto_real").val(number_format(desconto, 2, ',', '.'))
-        $("#subtotal").val(number_format(subtotal, 2, ',', '.'))
-    }
+const calculaDescontoPerc = () => {
+    let desconto_perc = moedaBRparaSQL($("#desconto_perc").val())
+    let quantidade = $("#quantidade").val()
+    let preco_unitario = moedaBRparaSQL($("#preco_unitario").val())
+    let subtotal = quantidade * preco_unitario
+    let desconto = subtotal * (desconto_perc / 100)
+    subtotal = subtotal - desconto
+
+    $("#desconto_real").val(number_format(desconto, 2, ',', '.'))
+    $("#subtotal").val(number_format(subtotal, 2, ',', '.'))
 }
 
 const calculaSubtotal = () => {
@@ -168,29 +168,52 @@ const adicionar = () => {
     let quantidade = $("#quantidade").val()
     let preco_unit = $("#preco_unitario").val()
     let desconto_real = !empty($("#desconto_real").val()) ? $("#desconto_real").val() : '0,00'
+    let desconto_perc = !empty($("#desconto_perc").val()) ? $("#desconto_perc").val() : '0,00'
     let subtotal = $("#subtotal").val()
+
+    if (empty(codigo) || empty(descricao) || empty(quantidade) || empty(preco_unit) || empty(desconto_real) || empty(subtotal)) {
+        alert('Todos os campos devem ser informados.')
+        return false
+    }
 
     let row = ''
 
     row += '<tr>'
-    row += '<td>' + codigo + '</td>'
+    row += '<td><input type="hidden" name="codigo[]" value="' + codigo + '">' + codigo + '</td>'
     row += '<td>' + descricao + '</td>'
-    row += '<td>' + quantidade + '</td>'
-    row += '<td>' + preco_unit + '</td>'
-    row += '<td>' + desconto_real + '</td>'
-    row += '<td>' + subtotal + '</td>'
-    row += '<td><button type="button" class="btn btn-sm btn-danger">Remover</button></td>'
+    row += '<td><input type="hidden" name="quantidade[]" value="' + quantidade + '">' + quantidade + '</td>'
+    row += '<td><input type="hidden" name="preco_unitario[]" value="' + moedaBRparaSQL(preco_unit) + '">' + preco_unit + '</td>'
+    row += '<td><input type="hidden" name="desconto_real[]" value="' + moedaBRparaSQL(desconto_real) + '">' + desconto_real + '</td>'
+    row += '<td><input type="hidden" name="desconto_perc[]" value="' + moedaBRparaSQL(desconto_perc) + '">' + desconto_perc + '</td>'
+    row += '<td><input type="hidden" name="subtotal[]" value="' + moedaBRparaSQL(subtotal) + '">' + subtotal + '</td>'
+    row += '<td><button type="button" class="btn btn-sm btn-danger" onclick="remover(this.parentNode.parentNode.rowIndex)">Remover</button></td>'
     row += '</tr>'
 
     $("#tabela_produtos tbody").append(row)
 
     calculaTotal()
+    limparProdutos()
 }
 
 const calculaTotal = () => {
     let tabela = $("#tabela_produtos")
+    let total = 0
 
     tabela.find('tbody').find('tr').map(function () {
-        console.log(tabela.find('tbody').find('tr').find('td').eq(5).text())
+        total = total + moedaBRparaSQL($(this).find('td').eq(6).text())
     })
+
+    $("#total").val(total)
+
+    $(".spanTotal").html(number_format(total, 2, ',', '.'))
+}
+
+const limparProdutos = () => {
+    $("#produto, #quantidade, #preco_unitario, #desconto_real, #desconto_perc, #subtotal").val('')
+}
+
+
+const remover = (row) => {
+    document.getElementById('tabela_produtos').deleteRow(row)
+    calculaTotal()
 }

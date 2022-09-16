@@ -28,3 +28,7 @@ ol.breadcrumb {
     font-size: 40px;
     font-weight: 700;
 }
+
+.filtros {
+    display: none;
+}

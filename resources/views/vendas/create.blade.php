@@ -4,23 +4,24 @@
 
 @extends('app')
 
-@section('tab-title', 'Tamanhos')
+@section('tab-title', 'Nova Venda')
 
 @section('content')
     @include('components.alert_request')
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url()->previous() }}">Código Grade</a></li>
+            <li class="breadcrumb-item"><a href="{{ url()->previous() }}">Vendas</a></li>
             <li class="breadcrumb-item active" aria-current="page">Cadastro</li>
         </ol>
     </nav>
 
-    <form method="post" action="{{ route('codigo_grade.store') }}">
+    <form method="post" action="{{ route('vendas.store') }}">
         @csrf
 
         <input type="hidden" id="cod_grade">
         <input type="hidden" id="descricao_hidden">
+        <input type="hidden" name="total" id="total">
 
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -67,12 +68,12 @@
                     <div class="col-md-3">
                         <label for="desconto_real">Desconto (R$)</label>
                         <input type="text" name="desconto_real" id="desconto_real" class="form-control form-control-sm"
-                               onkeyup="calculaDesconto(1)">
+                               onkeyup="calculaDescontoReal()">
                     </div>
                     <div class="col-md-3">
                         <label for="desconto_perc">Desconto (%)</label>
                         <input type="text" name="desconto_perc" id="desconto_perc" class="form-control form-control-sm"
-                               onkeyup="calculaDesconto(2)">
+                               onkeyup="calculaDescontoPerc()">
                     </div>
                     <div class="col-md-3">
                         <label for="subtotal">Subtotal</label>
@@ -96,6 +97,7 @@
                                 <th>Qtd</th>
                                 <th>Prc Unit</th>
                                 <th>Desconto (R$)</th>
+                                <th>Desconto (%)</th>
                                 <th>Subtotal</th>
                                 <th></th>
                             </tr>

@@ -758,3 +758,7 @@ function movimentacao_caixa(operacao, valor_operacao, operador) {
     else
         return false;
 }
+
+const toggleFiltros = () => {
+    $(".filtros").toggle();
+}

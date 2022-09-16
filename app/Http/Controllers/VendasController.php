@@ -6,6 +6,7 @@ use App\Http\Requests\StoreVendasRequest;
 use App\Http\Requests\UpdateVendasRequest;
 use App\Models\Vendas;
 use App\Services\VendasServices;
+use Illuminate\Support\Facades\Session;
 
 class VendasController extends Controller
 {
@@ -35,11 +36,22 @@ class VendasController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \App\Http\Requests\StoreVendasRequest $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreVendasRequest $request)
     {
-        //
+        $service = VendasServices::store($request);
+
+        Session::flash('message', $service->getContent());
+
+        if ($service->getStatusCode() !== 200) {
+            Session::flash('status', 'danger');
+            return back()->withInput($request->only(['usuario', 'senha']));
+        }
+
+        Session::flash('status', 'success');
+
+        return Response()->redirectToRoute('vendas.index');
     }
 
     /**

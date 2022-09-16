@@ -15,7 +15,6 @@ class CodigoGradesRepository implements CodigoGradesInterface
 
     public function findAll()
     {
-        // TODO: Implement findAll() method.
         return $this->model->select('id', 'codigo_grade', 'produtos_id', 'cores_id', 'tamanhos_id')->paginate(15);
     }
 
