@@ -17,9 +17,18 @@ class VendasController extends Controller
      */
     public function index()
     {
-        $vendas = VendasServices::findAll();
+        $dados['data_inicial'] = $_GET['data_inicial'] ?? date('d/m/Y');
+        $dados['data_final'] = $_GET['data_final'] ?? date('d/m/Y');
 
-        return view('vendas.index')->with(['vendas' => $vendas]);
+        $vendas = VendasServices::findAll($dados);
+
+        return view('vendas.index')->with(
+            [
+                'vendas' => $vendas,
+                'data_inicial' => $dados['data_inicial'],
+                'data_final' => $dados['data_final'],
+            ]
+        );
     }
 
     /**

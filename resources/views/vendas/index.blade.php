@@ -1,3 +1,7 @@
+@section('styles')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+@endsection
+
 @extends('app')
 
 @section('tab-title', 'Vendas')
@@ -24,19 +28,24 @@
             <h6 class="m-0 font-weight-bold text-primary">Filtros</h6>
         </div>
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="data_inicial">Data Inicial</label>
-                    <input type="date" name="data_inicial" id="data_inicial" class="form-control form-control-sm">
+            <form action="" method="GET">
+                @csrf
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="data_inicial">Data Inicial</label>
+                        <input type="date" name="data_inicial" id="data_inicial" class="form-control form-control-sm"
+                               value="{{ $data_inicial }}">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="data_final">Data Final</label>
+                        <input type="date" name="data_final" id="data_final" class="form-control form-control-sm"
+                               value="{{ $data_final }}">
+                    </div>
+                    <div class="col-md-2 btn_alinhado">
+                        <button type="submit" class="btn btn-sm btn-primary btn-block">Filtrar</button>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <label for="data_final">Data Final</label>
-                    <input type="date" name="data_final" id="data_final" class="form-control form-control-sm">
-                </div>
-                <div class="col-md-2 btn_alinhado">
-                    <button type="button" class="btn btn-sm btn-primary btn-block">Filtrar</button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -60,7 +69,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-sm">
+                    <table id="tabela_vendas" class="table table-sm">
                         <thead>
                         <tr>
                             <th>Venda</th>
@@ -120,14 +129,13 @@
                         @endforelse
                         </tbody>
                     </table>
-                    <hr>
-                    <div class="row mt-2">
-                        <div class="col-md-12 pagination_center">
-                            {{ $vendas->links('pagination::bootstrap-4') }}
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+    @section('scripts')
+        <script type="text/javascript" charset="utf8"
+                src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+        <script src="{{ asset('js/vendas/index.js') }}"></script>
+    @endsection
 @endsection

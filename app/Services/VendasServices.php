@@ -10,10 +10,10 @@ use App\Repository\vendas\VendasRepository;
 
 class VendasServices
 {
-    public static function findAll()
+    public static function findAll(array $dados)
     {
         try {
-            return (new VendasRepository(new Vendas()))->findAll();
+            return (new VendasRepository(new Vendas()))->findAll($dados);
         } catch (\Exception $e) {
             return Response($e->getMessage(), 430);
         }

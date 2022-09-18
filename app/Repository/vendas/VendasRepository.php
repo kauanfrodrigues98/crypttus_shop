@@ -13,11 +13,14 @@ class VendasRepository implements VendasInterface
         $this->model = $model;
     }
 
-    public function findAll()
+    public function findAll(array $dados)
     {
+        $data_inicial = implode("-", array_reverse(explode("/", $dados['data_inicial'])));
+        $data_final = implode("-", array_reverse(explode("/", $dados['data_final'])));
+
         return $this->model->select('id', 'clientes_id', 'user_id', 'desconto_real', 'desconto_perc', 'subtotal', 'total', 'status', 'created_at')
-            ->whereBetween('created_at', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])
-            ->paginate(15);
+            ->whereBetween('created_at', [$data_inicial . ' 00:00:00', $data_final . ' 23:59:59'])
+            ->get();
     }
 
     public function store(array $dados)
