@@ -301,12 +301,4 @@ const calculaFalta = () => {
     let totalFalta = total - totalForma
 
     $(".spanFalta").html(number_format(totalFalta, 2, ',', '.'))
-
-    console.log(totalFalta)
-
-    if (totalFalta === 0) {
-        $("#btnSalvar").removeAttr('disabled')
-    } else {
-        $("#btnSalvar").attr('disabled', 'disabled')
-    }
 }

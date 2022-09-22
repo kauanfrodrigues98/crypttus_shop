@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Exceptions\CustomException;
+use App\Models\FormaPagamentos;
 use App\Models\ProdutoVendas;
 use App\Models\Vendas;
+use App\Repository\formaPagamentos\FormaPagamentosRepository;
 use App\Repository\produtoVendas\ProdutoVendasRepository;
 use App\Repository\vendas\VendasRepository;
 
@@ -36,9 +38,27 @@ class VendasServices
                 throw new CustomException('Não foi possivel cadastrar produto.', 430);
             }
 
+            $vendaId = $repository->id;
+
+            if (!empty($request->forma_pagamento)) {
+                for ($index = 0; $index < count($request->forma_pagamento); $index++) {
+                    $forma['vendas_id'] = $vendaId;
+                    $forma['forma_pagamento'] = $request->forma_pagamento[$index];
+                    $forma['parcelas'] = $request->parcela[$index];
+                    $forma['valor'] = $request->valor[$index];
+                    $forma['valor_parcela'] = $request->valor_parcela[$index];
+
+                    $repository = (new FormaPagamentosRepository(new FormaPagamentos))->store($forma);
+
+                    if (!$repository) {
+                        throw new CustomException('Não conseguimos salvar a forma de pagamento da venda.', 430);
+                    }
+                }
+            }
+
             if (!empty($request->codigo)) {
                 for ($index = 0; $index < count($request->codigo); $index++) {
-                    $data['vendas_id'] = $repository->id;
+                    $data['vendas_id'] = $vendaId;
                     $data['codigo_grade'] = $request->codigo[$index];
                     $data['quantidade'] = $request->quantidade[$index];
                     $data['preco_unitario'] = $request->preco_unitario[$index];

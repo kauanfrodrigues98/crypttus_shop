@@ -77,7 +77,6 @@ class VendasController extends Controller
      */
     public function store(StoreVendasRequest $request)
     {
-        dd($request->all());
         $service = VendasServices::store($request);
 
         Session::flash('message', $service->getContent());
