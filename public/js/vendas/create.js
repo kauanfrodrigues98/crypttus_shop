@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $("#quantidade").mask('00000', {placeholder: '0'});
-    $("#preco_unitario, #desconto_real, #desconto_perc, #subtotal").mask('#.##0,00', {
+    $("#preco_unitario, #desconto_real, #desconto_perc, #subtotal, #valor, #valor_parcela").mask('#.##0,00', {
         placeholder: '0,00',
         reverse: true
     });
@@ -192,6 +192,7 @@ const adicionar = () => {
     $("#tabela_produtos tbody").append(row)
 
     calculaTotal()
+    calculaFalta()
     limparProdutos()
 }
 
@@ -205,15 +206,107 @@ const calculaTotal = () => {
 
     $("#total").val(total)
 
-    $(".spanTotal").html(number_format(total, 2, ',', '.'))
+    $(".spanTotal, .spanFalta").html(number_format(total, 2, ',', '.'))
 }
 
 const limparProdutos = () => {
     $("#produto, #quantidade, #preco_unitario, #desconto_real, #desconto_perc, #subtotal").val('')
 }
 
-
 const remover = (row) => {
     document.getElementById('tabela_produtos').deleteRow(row)
     calculaTotal()
+    calculaFalta()
+}
+
+const removerForma = (row) => {
+    document.getElementById('tabela_forma').deleteRow(row)
+    calculaTotal()
+    calculaFalta()
+}
+
+const adicionarForma = () => {
+    let formaPagamento = $("#forma_pagamento").val()
+    let parcelas = $("#parcelas").val()
+    let valor = $("#valor").val()
+    let valorParcela = $("#valor_parcela").val()
+
+    if (empty(formaPagamento)) {
+        swal('Aviso!', 'Você deve informar a forma de pagamento.', 'warning')
+        $("#forma_pagamento").focus()
+        return false
+    }
+
+    if (empty(parcelas)) {
+        swal('Aviso!', 'Você deve informar a quantidade de parcelas.', 'warning')
+        $("#parcelas").focus()
+        return false
+    }
+
+    if (empty(valor)) {
+        swal('Aviso!', 'Você deve informar o valor que será pago nessa forma de pagamento.', 'warning')
+        $("#valor").focus()
+        return false
+    }
+
+    let row = ''
+
+    row += '<tr>'
+    row += '<td><input type="hidden" name="forma_pagamento[]" value="' + formaPagamento + '">' + formaPagamento + '</td>'
+    row += '<td><input type="hidden" name="parcela[]" value="' + parcelas + '">' + parcelas + '</td>'
+    row += '<td><input type="hidden" name="valor[]" value="' + moedaBRparaSQL(valor) + '">' + valor + '</td>'
+    row += '<td><input type="hidden" name="valor_parcela[]" value="' + moedaBRparaSQL(valorParcela) + '">' + valorParcela + '</td>'
+    row += '<td><button type="button" class="btn btn-sm btn-danger" onclick="removerForma(this.parentNode.parentNode.rowIndex)">Remover</button></td>'
+    row += '</tr>'
+
+    $("#tabela_forma tbody").append(row)
+
+    calculaFalta()
+    limparForma()
+}
+
+const bloqueiaParcelas = (forma) => {
+    if (forma !== 'Crédito') {
+        $("#parcelas").val(1).trigger('change').attr('disabled', 'disabled')
+    } else {
+        $("#parcelas").val('').trigger('change').removeAttr('disabled')
+    }
+}
+
+const limparForma = () => {
+    $("#forma_pagamento, #parcelas, #valor_parcela").val('').trigger('change')
+    $("#valor").val('')
+}
+
+const calculaParcela = () => {
+    let parcelas = $("#parcelas").val()
+    let valor = empty($("#valor").val()) ? 0.00 : moedaBRparaSQL($("#valor").val())
+    let valorParcela = valor / parcelas
+
+    $("#valor_parcela").val(number_format(valorParcela, 2, ',', '.'))
+}
+
+const calculaFalta = () => {
+    let total = 0
+    let totalForma = 0
+
+    $("#tabela_produtos tbody tr").map(function () {
+        total = total + moedaBRparaSQL($(this).find('td').eq(6).text())
+    })
+
+    $("#tabela_forma tbody tr").map(function () {
+        totalForma = totalForma + moedaBRparaSQL($(this).find('td').eq(2).text())
+    })
+
+    let totalFalta = total - totalForma
+
+    $(".spanFalta").html(number_format(totalFalta, 2, ',', '.'))
+
+    console.log(totalFalta)
+
+    if (totalFalta === 0) {
+        $("#btnSalvar").removeAttr('disabled')
+    } else {
+        $("#btnSalvar").attr('disabled', 'disabled')
+    }
 }

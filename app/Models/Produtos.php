@@ -31,4 +31,9 @@ class Produtos extends Model
     {
         return $this->hasMany(CodigoGrades::class, 'produtos_id', 'id');
     }
+
+    public function produtoVenda()
+    {
+        return $this->hasOne(ProdutoVendas::class);
+    }
 }

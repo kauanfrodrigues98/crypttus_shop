@@ -21,6 +21,11 @@ class ProdutoVendas extends Model
 
     public function venda()
     {
-        return $this->hasOne(Vendas::class, 'vendas_id', 'id');
+        return $this->belongsTo(Vendas::class);
+    }
+
+    public function codigoGrade()
+    {
+        return $this->belongsTo(CodigoGrades::class, 'codigo_grade', 'codigo_grade');
     }
 }

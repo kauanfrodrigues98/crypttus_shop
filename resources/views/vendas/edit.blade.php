@@ -31,12 +31,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="funcionario">Funcionário<span class="text-danger">*</span></label>
-                        <select name="funcionario" id="funcionario" class="custom-select custom-select-sm"
-                                required></select>
+                        <input type="text" value="{{ $venda->user->nome }}" class="form-control form-control-sm"
+                               readonly>
                     </div>
                     <div class="col-md-6">
                         <label for="cliente">Cliente<span class="text-danger">*</span></label>
-                        <select name="cliente" id="cliente" class="custom-select custom-select-sm" required></select>
+                        <input type="text" value="{{ $venda->cliente->nome }}" class="form-control form-control-sm"
+                               readonly>
                     </div>
                 </div>
             </div>
@@ -102,14 +103,36 @@
                                 <th></th>
                             </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                            @forelse($venda->produtoVenda as $prod)
+                                <tr>
+                                    <td>{{ $prod->codigo_grade }}</td>
+                                    <td>{{ $prod->codigoGrade->produto->nome }}</td>
+                                    <td>{{ $prod->quantidade }}</td>
+                                    <td>{{ number_format($prod->preco_unitario, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($prod->desconto_real, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($prod->desconto_perc, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($prod->subtotal, 2, ',', '.') }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger"
+                                                onclick="remover(this.parentNode.parentNode.rowIndex)">Remover
+                                        </button>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="8">Não foram localizados produtos para esta venda</td>
+                                </tr>
+                            @endforelse
+                            </tbody>
                         </table>
                     </div>
                 </div>
 
                 <div class="row mt-2">
                     <div class="col-md-12 centralizado">
-                        <label class="lblCifrao">R$&nbsp;</label><span class="spanTotal">0,00</span>
+                        <label class="lblCifrao">R$&nbsp;</label><span
+                            class="spanTotal">{{ number_format($venda->total, 2, ',', '.') }}</span>
                     </div>
                 </div>
             </div>
@@ -120,80 +143,54 @@
                 <h6 class="m-0 font-weight-bold text-primary">Pagamento</h6>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <label for="forma_pagamento">Forma de Pagamento</label>
-                        <select id="forma_pagamento" class="custom-select custom-select-sm"
-                                onchange="bloqueiaParcelas(this.value)">
-                            <option value="">Selecione</option>
-                            @foreach($formaPagamentos as $key => $forma)
-                                <option value="{{ $key }}">{{ $forma }}</option>
-                            @endforeach
-                        </select>
+                <form action="" method="post" id="formFinalizar">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="forma_pagamento">Forma de Pagamento</label>
+                            <select name="forma_pagamento" id="forma_pagamento" class="custom-select custom-select-sm">
+                                <option value="">Selecione</option>
+                                @foreach($formaPagamentos as $key => $forma)
+                                    <option value="{{ $key }}">{{ $forma }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="parcelas">Parcelas</label>
+                            <select name="parcelas" id="parcelas" class="custom-select custom-select-sm">
+                                <option value="">Selecione</option>
+                                @foreach($parcelas as $key => $parcela)
+                                    <option value="{{ $key }}">{{ $parcela }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="valor">Valor (R$)</label>
+                            <input type="text" name="valor" id="valor" class="form-control form-control-sm">
+                        </div>
+                        <div class="col-md-3 btn_alinhado">
+                            <button type="button" class="btn btn-sm btn-block btn-info">Adicionar Forma</button>
+                        </div>
                     </div>
-                    <div class="col-md-2">
-                        <label for="parcelas">Parcelas</label>
-                        <select id="parcelas" class="custom-select custom-select-sm" onchange="calculaParcela()">
-                            <option value="">Selecione</option>
-                            @foreach($parcelas as $key => $parcela)
-                                <option value="{{ $key }}">{{ $parcela }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="valor">Valor (R$)</label>
-                        <input type="text" id="valor" class="form-control form-control-sm" onkeyup="calculaParcela()">
-                    </div>
-                    <div class="col-md-2">
-                        <label for="valor_parcela">Valor Parcela (R$)</label>
-                        <input type="text" id="valor_parcela" class="form-control form-control-sm" disabled>
-                    </div>
-                    <div class="col-md-3 btn_alinhado">
-                        <button type="button" class="btn btn-sm btn-block btn-info" onclick="adicionarForma()">Adicionar
-                            Forma
-                        </button>
-                    </div>
-                </div>
-
-                <div class="row mt-4">
-                    <div class="col-md-6 offset-md-3">
-                        <table id="tabela_forma" class="table table-hover table-sm table-striped">
-                            <thead>
-                            <tr>
-                                <th>Forma Pagamento</th>
-                                <th>Nº Parcelas</th>
-                                <th>Valor (R$)</th>
-                                <th>Valor Parcela (R$)</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="row mt-2">
-                    <div class="col-md-12 centralizado">
-                        <p class="lblCifrao centralizado">Falta</p>
-                        <label class="lblCifrao">R$&nbsp;</label><span class="spanFalta">0,00</span>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
 
-        <div class="row mt-2 mb-4">
-            <div class="col-md-4 offset-md-4">
-                <button type="submit" class="btn btn-sm btn-success btn-block" id="btnSalvar" disabled>Salvar</button>
+        <div class="row mt-2 content_center mb-4">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-sm btn-success btn-block">Salvar</button>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-sm btn-danger btn-block" disabled>Finalizar</button>
             </div>
         </div>
     </form>
 
     @section('scripts')
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"
                 integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw=="
                 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="{{ asset('js/vendas/create.js') }}"></script>
     @endsection
 @endsection

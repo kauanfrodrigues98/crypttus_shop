@@ -37,4 +37,9 @@ class VendasRepository implements VendasInterface
     {
         // TODO: Implement destroy() method.
     }
+
+    public function find(int $id)
+    {
+        return $this->model->find($id);
+    }
 }

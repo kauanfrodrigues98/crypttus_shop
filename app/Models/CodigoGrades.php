@@ -36,4 +36,9 @@ class CodigoGrades extends Model
     {
         return $this->belongsTo(Tamanhos::class, 'tamanhos_id', 'id');
     }
+
+    public function produtoVenda()
+    {
+        return $this->hasOne(ProdutoVendas::class, 'codigo_grade', 'codigo_grade');
+    }
 }

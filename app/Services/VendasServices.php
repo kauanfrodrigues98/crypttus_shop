@@ -61,4 +61,21 @@ class VendasServices
             return Response($e->getMessage(), 430);
         }
     }
+
+    public static function find(int $id)
+    {
+        try {
+            $repository = (new VendasRepository(new Vendas))->find($id);
+
+            if (!$repository) {
+                throw new CustomException('Não conseguimos localizar a venda.', 430);
+            }
+
+            return $repository;
+        } catch (CustomException $e) {
+            return Response($e->getMessage(), 430);
+        } catch (\Throwable $e) {
+            return Response($e->getMessage(), 430);
+        }
+    }
 }

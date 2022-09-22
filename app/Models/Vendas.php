@@ -32,6 +32,6 @@ class Vendas extends Model
 
     public function produtoVenda()
     {
-        return $this->belongsToMany(ProdutoVendas::class, 'vendas_id', 'id');
+        return $this->hasMany(ProdutoVendas::class, 'vendas_id', 'id');
     }
 }

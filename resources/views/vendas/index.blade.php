@@ -114,7 +114,8 @@
                                              aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Ações</div>
                                             <a class="dropdown-item" href="#">Finalizar</a>
-                                            <a class="dropdown-item" href="#">Alterar</a>
+                                            <a class="dropdown-item"
+                                               href="{{ route('vendas.edit', ['id' => $venda->id]) }}">Alterar</a>
                                             <a class="dropdown-item" href="#">Deletar</a>
                                         </div>
                                     </div>

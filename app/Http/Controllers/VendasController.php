@@ -10,6 +10,28 @@ use Illuminate\Support\Facades\Session;
 
 class VendasController extends Controller
 {
+    const FORMAS_PAGAMENTO = [
+        'Dinheiro' => 'Dinheiro',
+        'Crédito' => 'Crédito',
+        'Débito' => 'Débito',
+        'PIX' => 'PIX',
+    ];
+
+    const PARCELAS = [
+        1 => 1,
+        2 => 2,
+        3 => 3,
+        4 => 4,
+        5 => 5,
+        6 => 6,
+        7 => 7,
+        8 => 8,
+        9 => 9,
+        10 => 10,
+        11 => 11,
+        12 => 12,
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +60,13 @@ class VendasController extends Controller
      */
     public function create()
     {
-        return view('vendas.create');
+        return view('vendas.create')
+            ->with(
+                [
+                    'formaPagamentos' => self::FORMAS_PAGAMENTO,
+                    'parcelas' => self::PARCELAS,
+                ]
+            );
     }
 
     /**
@@ -49,6 +77,7 @@ class VendasController extends Controller
      */
     public function store(StoreVendasRequest $request)
     {
+        dd($request->all());
         $service = VendasServices::store($request);
 
         Session::flash('message', $service->getContent());
@@ -78,11 +107,19 @@ class VendasController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Models\Vendas $vendas
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit(Vendas $vendas)
+    public function edit(int $id)
     {
-        //
+        $venda = VendasServices::find($id);
+
+        return view('vendas.edit')->with(
+            [
+                'venda' => $venda,
+                'formaPagamentos' => self::FORMAS_PAGAMENTO,
+                'parcelas' => self::PARCELAS,
+            ]
+        );
     }
 
     /**

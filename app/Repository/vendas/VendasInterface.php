@@ -11,4 +11,6 @@ interface VendasInterface
     public function update(int $id, array $dados);
 
     public function destroy(int $id);
+
+    public function find(int $id);
 }

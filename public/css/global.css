@@ -24,11 +24,16 @@ ol.breadcrumb {
     font-weight: 700;
 }
 
-.spanTotal {
+.spanTotal, .spanFalta {
     font-size: 40px;
     font-weight: 700;
 }
 
 .filtros {
     display: none;
+}
+
+.content_center {
+    display: flex;
+    justify-content: center;
 }
