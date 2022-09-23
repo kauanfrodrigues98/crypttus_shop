@@ -38,9 +38,21 @@ const MENUS = [
         ],
     ],
     [
+        'name' => 'Recebimentos',
+        'route' => 'recebimentos.index',
+        'icon' => 'fas fa-fw fa-truck',
+        'submenu' => false,
+    ],
+    [
+        'name' => 'Estoque',
+        'route' => 'estoque.index',
+        'icon' => 'fas fa-fw fa-box',
+        'submenu' => false,
+    ],
+    [
         'name' => 'Vendas',
         'route' => 'vendas.index',
-        'icon' => 'fas fa-solid fa-basket-shopping',
+        'icon' => 'fas fa-solid fa-box-open',
         'submenu' => false,
     ],
 ];

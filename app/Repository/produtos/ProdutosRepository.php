@@ -58,7 +58,7 @@ class ProdutosRepository implements ProdutosInterface
         return $this->model->join('codigo_grades AS cg', 'cg.produtos_id', '=', 'produtos.id')
             ->join('cores as c', 'c.id', '=', 'cg.cores_id')
             ->join('tamanhos as t', 't.id', '=', 'cg.tamanhos_id')
-            ->select(DB::raw('CONCAT(produtos.nome," ",c.cor," ",t.tamanho) AS descricao'), 'cg.id', 'produtos.preco_venda', 'cg.codigo_grade')
+            ->select(DB::raw('CONCAT(produtos.nome," ",c.cor," ",t.tamanho) AS descricao'), 'cg.id', 'produtos.preco_venda', 'produtos.preco_compra', 'cg.codigo_grade')
             ->where(['cg.codigo_grade' => $codigo])
             ->first();
     }

@@ -3,8 +3,10 @@
 use App\Http\Controllers\{ClientesController,
     CodigoGradesController,
     CoresController,
+    EstoquesController,
     HomeController,
     ProdutosController,
+    RecebimentosController,
     TamanhosController,
     UserController,
     VendasController,
@@ -72,6 +74,18 @@ Route::middleware('auth')->group(function() {
         Route::get('cadastro', [VendasController::class, 'create'])->name('vendas.create');
         Route::post('store', [VendasController::class, 'store'])->name('vendas.store');
         Route::get('detalhes/{id}', [VendasController::class, 'show'])->name('vendas.show');
+    });
+
+    Route::prefix('estoque')->group(function () {
+        Route::get('index', [EstoquesController::class, 'index'])->name('estoque.index');
+        Route::get('cadastro', [EstoquesController::class, 'create'])->name('estoque.create');
+        Route::post('store', [EstoquesController::class, 'store'])->name('estoque.store');
+    });
+
+    Route::prefix('recebimentos')->group(function () {
+        Route::get('index', [RecebimentosController::class, 'index'])->name('recebimentos.index');
+        Route::get('cadastro', [RecebimentosController::class, 'create'])->name('recebimentos.create');
+        Route::post('store', [RecebimentosController::class, 'store'])->name('recebimentos.store');
     });
 });
 
