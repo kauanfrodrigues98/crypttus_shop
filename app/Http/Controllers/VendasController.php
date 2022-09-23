@@ -95,11 +95,19 @@ class VendasController extends Controller
      * Display the specified resource.
      *
      * @param \App\Models\Vendas $vendas
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(Vendas $vendas)
+    public function show(int $id)
     {
-        //
+        $venda = VendasServices::find($id);
+
+        return view('vendas.show')->with(
+            [
+                'venda' => $venda,
+                'formaPagamentos' => self::FORMAS_PAGAMENTO,
+                'parcelas' => self::PARCELAS,
+            ]
+        );
     }
 
     /**

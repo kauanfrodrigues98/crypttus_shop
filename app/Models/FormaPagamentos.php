@@ -12,8 +12,13 @@ class FormaPagamentos extends Model
     protected $fillable = [
         'vendas_id',
         'forma_pagamento',
-        'parcela',
+        'parcelas',
         'valor',
         'valor_parcela',
     ];
+
+    public function vendas()
+    {
+        return $this->belongsTo(Vendas::class, 'vendas_id', 'id');
+    }
 }

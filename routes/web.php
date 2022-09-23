@@ -71,7 +71,7 @@ Route::middleware('auth')->group(function() {
         Route::get('index', [VendasController::class, 'index'])->name('vendas.index');
         Route::get('cadastro', [VendasController::class, 'create'])->name('vendas.create');
         Route::post('store', [VendasController::class, 'store'])->name('vendas.store');
-        Route::get('editar/{id}', [VendasController::class, 'edit'])->name('vendas.edit');
+        Route::get('detalhes/{id}', [VendasController::class, 'show'])->name('vendas.show');
     });
 });
 

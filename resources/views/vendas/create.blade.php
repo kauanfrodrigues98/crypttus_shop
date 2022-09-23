@@ -183,7 +183,7 @@
 
         <div class="row mt-2 mb-4">
             <div class="col-md-4 offset-md-4">
-                <button type="submit" class="btn btn-sm btn-success btn-block" id="btnSalvar">Salvar</button>
+                <button type="submit" class="btn btn-sm btn-success btn-block" id="btnSalvar">Finalizar</button>
             </div>
         </div>
     </form>

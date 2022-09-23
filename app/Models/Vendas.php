@@ -34,4 +34,9 @@ class Vendas extends Model
     {
         return $this->hasMany(ProdutoVendas::class, 'vendas_id', 'id');
     }
+
+    public function formaPagamento()
+    {
+        return $this->hasMany(FormaPagamentos::class, 'vendas_id', 'id');
+    }
 }

@@ -94,10 +94,10 @@
                                 <td>R$ {{ number_format($venda->total, 2, ',', '.') }}</td>
                                 @switch($venda->status)
                                     @case(1)
-                                        <td><span class="badge badge-info">Aberto</span></td>
+                                        <td><span class="badge badge-success">Finalizado</span></td>
                                         @break
                                     @case(2)
-                                        <td><span class="badge badge-success">Finalizado</span></td>
+                                        <td><span class="badge badge-info">Aberto</span></td>
                                         @break
                                     @case(3)
                                         <td><span class="badge badge-danger">Cancelado</span></td>
@@ -115,7 +115,7 @@
                                             <div class="dropdown-header">Ações</div>
                                             <a class="dropdown-item" href="#">Finalizar</a>
                                             <a class="dropdown-item"
-                                               href="{{ route('vendas.edit', ['id' => $venda->id]) }}">Alterar</a>
+                                               href="{{ route('vendas.show', ['id' => $venda->id]) }}">Detalhes</a>
                                             <a class="dropdown-item" href="#">Deletar</a>
                                         </div>
                                     </div>
