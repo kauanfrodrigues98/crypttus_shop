@@ -14,6 +14,12 @@ const MENUS = [
         'submenu' => false,
     ],
     [
+        'name' => 'Fornecedores',
+        'route' => 'fornecedores.index',
+        'icon' => 'fas fa-fw fa-truck',
+        'submenu' => false,
+    ],
+    [
         'name' => 'Produtos',
         'route' => '',
         'icon' => 'fas fa-fw fa-briefcase',

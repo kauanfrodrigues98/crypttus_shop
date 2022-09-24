@@ -16,7 +16,7 @@
         </ol>
     </nav>
 
-    <form method="post" action="{{ route('vendas.store') }}">
+    <form method="post" action="{{ route('recebimentos.store') }}">
         @csrf
 
         <input type="hidden" id="cod_grade">

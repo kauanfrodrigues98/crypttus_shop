@@ -62,7 +62,7 @@ $(document).ready(function () {
 
     $("#fornecedor").select2({
         ajax: {
-            url: window.location.origin + "/get/clientes",
+            url: window.location.origin + "/get/fornecedores",
             method: 'post',
             dataType: 'json',
             data: function (params) {
@@ -80,7 +80,7 @@ $(document).ready(function () {
                     results: data.map(function (item) {
                         return {
                             id: item.id,
-                            text: item.nome
+                            text: item.razao_social
                         }
                     }),
                     pagination: {

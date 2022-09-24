@@ -2,41 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FuncoesHelpers;
 use App\Http\Requests\StoreFornecedoresRequest;
 use App\Http\Requests\UpdateFornecedoresRequest;
 use App\Models\Fornecedores;
+use App\Services\FornecedoresServices;
+use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\Request;
 
 class FornecedoresController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
-        //
+        $fornecedores = FornecedoresServices::findAll();
+
+        return view('fornecedores.index')->with(['fornecedores' => $fornecedores]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
-        //
+        return view('fornecedores.create')->with(['ufs' => FuncoesHelpers::ESTADOS_BRASILEIROS]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param \App\Http\Requests\StoreFornecedoresRequest $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreFornecedoresRequest $request)
     {
-        //
+        $service = FornecedoresServices::store($request);
+
+        Session::flash('message', $service->getContent());
+
+        if ($service->getStatusCode() !== 200) {
+            Session::flash('status', 'danger');
+            return back()->withInput();
+        }
+
+        Session::flash('status', 'success');
+
+        return Response()->redirectToRoute('fornecedores.index');
     }
 
     /**
@@ -82,5 +99,10 @@ class FornecedoresController extends Controller
     public function destroy(Fornecedores $fornecedores)
     {
         //
+    }
+
+    public function get(Request $request)
+    {
+        return FornecedoresServices::get($request);
     }
 }

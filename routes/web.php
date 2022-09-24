@@ -4,6 +4,7 @@ use App\Http\Controllers\{ClientesController,
     CodigoGradesController,
     CoresController,
     EstoquesController,
+    FornecedoresController,
     HomeController,
     ProdutosController,
     RecebimentosController,
@@ -87,6 +88,12 @@ Route::middleware('auth')->group(function() {
         Route::get('cadastro', [RecebimentosController::class, 'create'])->name('recebimentos.create');
         Route::post('store', [RecebimentosController::class, 'store'])->name('recebimentos.store');
     });
+
+    Route::prefix('fornecedores')->group(function () {
+        Route::get('index', [FornecedoresController::class, 'index'])->name('fornecedores.index');
+        Route::get('cadastro', [FornecedoresController::class, 'create'])->name('fornecedores.create');
+        Route::post('store', [FornecedoresController::class, 'store'])->name('fornecedores.store');
+    });
 });
 
 Route::prefix('get')->group(function () {
@@ -96,6 +103,7 @@ Route::prefix('get')->group(function () {
     Route::post('detalhes/produto', [ProdutosController::class, 'getDetalhes'])->name('get.detalhes.produtos');
     Route::post('funcionarios', [UserController::class, 'get'])->name('get.funcionarios');
     Route::post('clientes', [ClientesController::class, 'get'])->name('get.clientes');
+    Route::post('fornecedores', [FornecedoresController::class, 'get'])->name('get.fornecedores');
 });
 
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
