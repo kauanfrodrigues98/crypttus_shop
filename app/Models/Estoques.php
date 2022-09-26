@@ -10,7 +10,7 @@ class Estoques extends Model
     use HasFactory;
 
     protected $fillable = [
-        'codigo_grades_id',
+        'codigo_grade',
         'quantidade',
         'quantidade_anterior'
     ];

@@ -5,9 +5,11 @@ namespace App\Services;
 use App\Exceptions\CustomException;
 use App\Models\CodigoGrades;
 use App\Models\Cores;
+use App\Models\Estoques;
 use App\Models\Produtos;
 use App\Models\Tamanhos;
 use App\Repository\codigo_grades\CodigoGradesRepository;
+use App\Repository\estoques\EstoquesRepository;
 use Illuminate\Support\Facades\DB;
 
 class CodigoGradesServices
@@ -39,6 +41,16 @@ class CodigoGradesServices
                     throw new CustomException('Não foi possivel cadastrar código grade.', 430);
                 }
 
+                $estoque['codigo_grade'] = $grade;
+                $estoque['quantidade'] = 0;
+                $estoque['quantidade_anterior'] = 0;
+
+                $repository = (new EstoquesRepository(new Estoques))->store($estoque);
+
+                if (!$repository) {
+                    throw new CustomException('Não conseguimos alterar o estoque.', 430);
+                }
+
                 $index++;
             }
 
@@ -51,5 +63,12 @@ class CodigoGradesServices
             DB::rollBack();
             return Response($e->getMessage(), 430);
         }
+    }
+
+    public static function get($request)
+    {
+        $search = $request->search ?? '';
+
+        return (new CodigoGradesRepository(new CodigoGrades))->get($search);
     }
 }

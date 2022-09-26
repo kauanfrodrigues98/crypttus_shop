@@ -7,7 +7,7 @@ $(document).ready(function () {
 
     $("#produto").select2({
         ajax: {
-            url: window.location.origin + "/get/produtos",
+            url: window.location.origin + "/get/codigo_grade",
             method: 'post',
             dataType: 'json',
             data: function (params) {

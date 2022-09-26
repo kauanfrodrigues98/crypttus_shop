@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateCodigoGradesRequest;
 use App\Models\CodigoGrades;
 use App\Services\CodigoGradesServices;
 use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\Request;
 
 class CodigoGradesController extends Controller
 {
@@ -97,5 +98,10 @@ class CodigoGradesController extends Controller
     public function destroy(CodigoGrades $codigoGrades)
     {
         //
+    }
+
+    public function get(Request $request)
+    {
+        return CodigoGradesServices::get($request);
     }
 }

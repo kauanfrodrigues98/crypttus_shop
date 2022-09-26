@@ -17,7 +17,18 @@ class FornecedoresFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'razao_social' => 'Roupas Importadas LTDA',
+            'nome_fantasia' => 'Roupas Importadas',
+            'cnpj' => '00.000.000/0001-00',
+            'email' => 'roupasimportadas@gmail.com',
+            'celular' => '(81)99999-9999',
+            'cep' => null,
+            'logradouro' => null,
+            'numero' => null,
+            'bairro' => null,
+            'cidade' => null,
+            'uf' => 'PE',
+            'complemento' => null,
         ];
     }
 }

@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Clientes>
@@ -18,7 +17,18 @@ class ClientesFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nome' => fake()->name(),
+            'cpf' => fake()->cpf(),
+            'email' => fake()->safeEmail(),
+            'data_nascimento' => fake()->date(),
+            'celular' => fake()->cellPhoneNumber(),
+            'cep' => null,
+            'logradouro' => null,
+            'numero' => null,
+            'bairro' => null,
+            'cidade' => null,
+            'uf' => 'PE',
+            'complemento' => null,
         ];
     }
 }

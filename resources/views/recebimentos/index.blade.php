@@ -84,9 +84,13 @@
                         @forelse($recebimentos as $recebimento)
                             <tr>
                                 <td>{{ $recebimento->id }}</td>
-                                <td>{{ $recebimento->cliente->nome }}</td>
                                 <td>{{ $recebimento->user->nome }}</td>
                                 <td>R$ {{ number_format($recebimento->total, 2, ',', '.') }}</td>
+                                @switch($recebimento->status)
+                                    @case(1)
+                                        <td><span class="badge badge-success">Finalizado</span></td>
+                                        @break
+                                @endswitch
                                 <td>{{ date('d/m/Y H:i:s', strtotime($recebimento->created_at)) }}</td>
                                 <td class="text-center">
                                     <div class="dropdown no-arrow">

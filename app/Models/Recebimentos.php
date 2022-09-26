@@ -16,4 +16,9 @@ class Recebimentos extends Model
         'total',
         'status'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

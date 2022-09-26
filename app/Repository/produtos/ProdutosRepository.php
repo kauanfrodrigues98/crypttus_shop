@@ -39,18 +39,12 @@ class ProdutosRepository implements ProdutosInterface
     public function get(string $search)
     {
         if (!empty($search)) {
-            return $this->model->join('codigo_grades AS cg', 'cg.produtos_id', '=', 'produtos.id')
-                ->join('cores as c', 'c.id', '=', 'cg.cores_id')
-                ->join('tamanhos as t', 't.id', '=', 'cg.tamanhos_id')
-                ->select(DB::raw('CONCAT(produtos.nome," ",c.cor," ",t.tamanho) AS descricao'), 'cg.codigo_grade AS codigo')
-                ->where('produtos.codigo', 'LIKE', "%" . $search . "%")
-                ->orWhere('produtos.nome', 'LIKE', "%" . $search . "%")
+            return $this->model->select('codigo', 'nome')
+                ->where('codigo', 'LIKE', "%" . $search . "%")
+                ->orWhere('nome', 'LIKE', "%" . $search . "%")
                 ->get();
         }
-        return $this->model->join('codigo_grades AS cg', 'cg.produtos_id', '=', 'produtos.id')
-            ->join('cores as c', 'c.id', '=', 'cg.cores_id')
-            ->join('tamanhos as t', 't.id', '=', 'cg.tamanhos_id')
-            ->select(DB::raw('CONCAT(produtos.nome," ",c.cor," ",t.tamanho) AS descricao'), 'cg.codigo_grade AS codigo')->limit(15)->get();
+        return $this->model->select('codigo', 'nome')->limit(15)->get();
     }
 
     public function getDetalhes(string $codigo)

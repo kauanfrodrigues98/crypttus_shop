@@ -2,35 +2,25 @@
 
 namespace App\Repository\codigo_grades;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Repository\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
-class CodigoGradesRepository implements CodigoGradesInterface
+class CodigoGradesRepository extends BaseRepository implements CodigoGradesInterface
 {
-    private $model;
-
-    public function __construct(Model $model)
+    public function get(string $search)
     {
-        $this->model = $model;
-    }
-
-    public function findAll()
-    {
-        return $this->model->select('id', 'codigo_grade', 'produtos_id', 'cores_id', 'tamanhos_id')->paginate(15);
-    }
-
-    public function store(array $dados)
-    {
-        // TODO: Implement store() method.
-        return $this->model->create($dados);
-    }
-
-    public function update(int $id, array $dados)
-    {
-        // TODO: Implement update() method.
-    }
-
-    public function destroy(int $id)
-    {
-        // TODO: Implement destroy() method.
+        if (!empty($search)) {
+            return $this->model->join('produtos', 'codigo_grades.produtos_id', '=', 'produtos.id')
+                ->join('cores as c', 'c.id', '=', 'codigo_grades.cores_id')
+                ->join('tamanhos as t', 't.id', '=', 'codigo_grades.tamanhos_id')
+                ->select(DB::raw('CONCAT(produtos.nome," ",c.cor," ",t.tamanho) AS descricao'), 'codigo_grades.codigo_grade AS codigo')
+                ->where('produtos.codigo', 'LIKE', "%" . $search . "%")
+                ->orWhere('produtos.nome', 'LIKE', "%" . $search . "%")
+                ->get();
+        }
+        return $this->model->join('produtos', 'codigo_grades.produtos_id', '=', 'produtos.id')
+            ->join('cores as c', 'c.id', '=', 'codigo_grades.cores_id')
+            ->join('tamanhos as t', 't.id', '=', 'codigo_grades.tamanhos_id')
+            ->select(DB::raw('CONCAT(produtos.nome," ",c.cor," ",t.tamanho) AS descricao'), 'codigo_grades.codigo_grade AS codigo')->limit(15)->get();
     }
 }

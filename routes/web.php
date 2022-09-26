@@ -87,6 +87,7 @@ Route::middleware('auth')->group(function() {
         Route::get('index', [RecebimentosController::class, 'index'])->name('recebimentos.index');
         Route::get('cadastro', [RecebimentosController::class, 'create'])->name('recebimentos.create');
         Route::post('store', [RecebimentosController::class, 'store'])->name('recebimentos.store');
+        Route::get('detalhes/{id}', [RecebimentosController::class, 'show'])->name('recebimentos.show');
     });
 
     Route::prefix('fornecedores')->group(function () {
@@ -104,6 +105,7 @@ Route::prefix('get')->group(function () {
     Route::post('funcionarios', [UserController::class, 'get'])->name('get.funcionarios');
     Route::post('clientes', [ClientesController::class, 'get'])->name('get.clientes');
     Route::post('fornecedores', [FornecedoresController::class, 'get'])->name('get.fornecedores');
+    Route::post('codigo_grade', [CodigoGradesController::class, 'get'])->name('get.codigo_grade');
 });
 
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
