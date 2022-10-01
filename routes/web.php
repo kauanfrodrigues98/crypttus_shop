@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\{ClientesController,
     CodigoGradesController,
+    ColecoesController,
     CoresController,
     EstoquesController,
     FornecedoresController,
@@ -94,6 +95,12 @@ Route::middleware('auth')->group(function() {
         Route::get('index', [FornecedoresController::class, 'index'])->name('fornecedores.index');
         Route::get('cadastro', [FornecedoresController::class, 'create'])->name('fornecedores.create');
         Route::post('store', [FornecedoresController::class, 'store'])->name('fornecedores.store');
+    });
+
+    Route::prefix('colecoes')->group(function () {
+        Route::get('index', [ColecoesController::class, 'index'])->name('colecoes.index');
+        Route::get('cadastro', [ColecoesController::class, 'create'])->name('colecoes.create');
+        Route::post('store', [ColecoesController::class, 'store'])->name('colecoes.store');
     });
 });
 

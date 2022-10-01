@@ -18,10 +18,10 @@ class ClientesFactory extends Factory
     {
         return [
             'nome' => fake()->name(),
-            'cpf' => fake()->cpf(),
+            'cpf' => fake()->numberBetween(11111111111, 99999999999),
             'email' => fake()->safeEmail(),
             'data_nascimento' => fake()->date(),
-            'celular' => fake()->cellPhoneNumber(),
+            'celular' => '',
             'cep' => null,
             'logradouro' => null,
             'numero' => null,

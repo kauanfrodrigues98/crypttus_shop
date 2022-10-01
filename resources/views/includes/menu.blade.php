@@ -41,6 +41,10 @@ const MENUS = [
                 'name' => 'Código Grade',
                 'route' => 'codigo_grade.index'
             ],
+            [
+                'name' => 'Coleções',
+                'route' => 'colecoes.index'
+            ],
         ],
     ],
     [

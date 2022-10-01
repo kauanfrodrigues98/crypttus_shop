@@ -1,11 +1,11 @@
 @extends('app')
 
-@section('tab-title', 'Clientes')
+@section('tab-title', 'Coleções')
 
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Clientes</li>
+            <li class="breadcrumb-item active" aria-current="page">Coleções</li>
             <li class="breadcrumb-item active" aria-current="page">Relatório</li>
         </ol>
     </nav>
@@ -15,7 +15,7 @@
     <div class="card shadow mb-4">
         <div
             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Clientes</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Coleções</h6>
             <div class="dropdown no-arrow">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -24,7 +24,7 @@
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                      aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Ações</div>
-                    <a class="dropdown-item" href="{{ route('clientes.create') }}">Novo Cliente</a>
+                    <a class="dropdown-item" href="{{ route('colecoes.create') }}">Nova Coleção</a>
                     <a class="dropdown-item" href="#">Exportar PDF</a>
                     <a class="dropdown-item" href="#">Exportar Excel</a>
                 </div>
@@ -35,23 +35,15 @@
                 <div class="col-md-12">
                     <table class="table table-sm">
                         <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>E-mail</th>
-                                <th>CPF</th>
-                                <th>Data Nascimento</th>
-                                <th>Celular</th>
-                                <th class="text-center">Ações</th>
-                            </tr>
+                        <tr>
+                            <th>Coleção</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
                         </thead>
                         <tbody>
-                        @forelse($clientes as $cliente)
+                        @forelse($colecoes as $colecao)
                             <tr>
-                                <td>{{ $cliente->nome }}</td>
-                                <td>{{ $cliente->email }}</td>
-                                <td>{{ $cliente->cpf }}</td>
-                                <td>{{ Helper::dataSQLparaBR($cliente->data_nascimento) }}</td>
-                                <td>{{ $cliente->celular }}</td>
+                                <td>{{ $colecao->nome }}</td>
                                 <td class="text-center">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -70,7 +62,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">Não foram encontrados registros para serem
+                                <td colspan="4" class="text-center">Não foram encontrados registros para serem
                                     exibidos
                                 </td>
                             </tr>

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Fornecedores;
 use Illuminate\Database\Seeder;
 
 class FornecedoresSeeder extends Seeder
@@ -13,6 +14,6 @@ class FornecedoresSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Fornecedores::factory(1)->create();
     }
 }
