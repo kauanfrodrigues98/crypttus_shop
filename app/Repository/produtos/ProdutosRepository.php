@@ -56,4 +56,14 @@ class ProdutosRepository implements ProdutosInterface
             ->where(['cg.codigo_grade' => $codigo])
             ->first();
     }
+
+    public function show(int $id)
+    {
+        return $this->model->find($id);
+    }
+
+    public function localizarProduto(string $codigo)
+    {
+        return $this->model->select('id')->where('codigo', $codigo)->first();
+    }
 }

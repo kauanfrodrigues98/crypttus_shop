@@ -59,12 +59,14 @@ class ProdutosController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Produtos  $produtos
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Produtos $produtos
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(Produtos $produtos)
+    public function show(int $id)
     {
-        //
+        $produto = ProdutosServices::show($id);
+
+        return view('produtos.show')->with(['produto' => $produto]);
     }
 
     /**
@@ -110,5 +112,12 @@ class ProdutosController extends Controller
     public function getDetalhes(Request $request)
     {
         return ProdutosServices::getDetalhes($request);
+    }
+
+    public function localizarProduto(Request $request)
+    {
+        $produto = ProdutosServices::localizarProduto($request);
+
+        return Redirect()->route('produtos.show', ['id' => $produto]);
     }
 }

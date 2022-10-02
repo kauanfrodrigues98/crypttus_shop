@@ -15,4 +15,8 @@ interface ProdutosInterface
     public function get(string $search);
 
     public function getDetalhes(string $id);
+
+    public function show(int $id);
+
+    public function localizarProduto(string $codigo);
 }

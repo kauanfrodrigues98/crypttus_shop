@@ -55,4 +55,38 @@ class ProdutosServices
 
         return (new ProdutosRepository(new Produtos))->getDetalhes($codigo);
     }
+
+    public static function show(int $id)
+    {
+        try {
+            $repository = (new ProdutosRepository(new Produtos))->show($id);
+
+            if (!$repository) {
+                throw new CustomException('Não conseguimos localizar seu produto.', 430);
+            }
+
+            return $repository;
+        } catch (CustomException $e) {
+            return Response($e->getMessage(), 430);
+        } catch (\Throwable $e) {
+            return Response($e->getMessage(), 430);
+        }
+    }
+
+    public static function localizarProduto($request)
+    {
+        try {
+            $codigo = $request->localizar_produto ?? '';
+
+            $repository = (new ProdutosRepository(new Produtos))->localizarProduto($codigo);
+
+            if (!$repository) {
+                throw new CustomException('Não foi possivel localizar o produto informado.', 430);
+            }
+
+            return $repository->id;
+        } catch (CustomException $e) {
+            return Response($e->getMessage(), 430);
+        }
+    }
 }

@@ -59,17 +59,20 @@
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                              aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Ações</div>
-                                            <a class="dropdown-item" href="#">Detalhes</a>
-                                                <a class="dropdown-item" href="#">Deletar</a>
-                                            </div>
+                                            <a class="dropdown-item"
+                                               href="{{ route('produtos.show', ['id' => $produto->id]) }}">Detalhes</a>
+                                            <a class="dropdown-item" href="#">Deletar</a>
                                         </div>
-                                    </td>
-{{--                                    <td><a href="#" class="btn btn-primary btn-sm">Detalhes</a></td>--}}
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="4" class="text-center">Não foram encontrados registros para serem exibidos</td>
-                                </tr>
+                                    </div>
+                                </td>
+                                {{--                                    <td><a href="#" class="btn btn-primary btn-sm">Detalhes</a></td>--}}
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center">Não foram encontrados registros para serem
+                                    exibidos
+                                </td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>

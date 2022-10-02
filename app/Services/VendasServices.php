@@ -30,7 +30,7 @@ class VendasServices
             $dados['desconto_real'] = 0;
             $dados['desconto_perc'] = 0;
             $dados['total'] = $request->total;
-            $dados['status'] = 1;
+            $dados['status'] = (!empty($request->forma_pagamento)) ? 'Finalizado' : 'Aberto';
 
             $repository = (new VendasRepository(new Vendas))->store($dados);
 

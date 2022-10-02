@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function() {
         Route::get('index', [ProdutosController::class, 'index'])->name('produtos.index');
         Route::get('cadastro', [ProdutosController::class, 'create'])->name('produtos.create');
         Route::post('store', [ProdutosController::class, 'store'])->name('produtos.store');
+        Route::get('detalhes/{id}', [ProdutosController::class, 'show'])->name('produtos.show');
     });
 
     Route::prefix('tamanhos')->group(function () {
@@ -118,5 +119,6 @@ Route::prefix('get')->group(function () {
 });
 
 Route::post('tem_estoque', [EstoquesController::class, 'temEstoque'])->name('tem_estoque');
+Route::post('localizar_produto', [ProdutosController::class, 'localizarProduto'])->name('localizar_produto');
 
 Route::get('logout', [UserController::class, 'logout'])->name('logout');

@@ -183,7 +183,7 @@ const adicionar = () => {
         _token: $("input[name='_token']").val()
     })
 
-    if (temEstoque.quantidade <= quantidade) {
+    if (temEstoque.quantidade < quantidade) {
         swal('Aviso!', 'A quantidade informada é maior que o estoque disponivel.', 'warning')
         return false
     }

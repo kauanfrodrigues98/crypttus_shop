@@ -82,25 +82,24 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @php
+                            $total = 0
+                        @endphp
                         @forelse($vendas as $venda)
-                            @php
-                                $total = 0
-                            @endphp
-
                             <tr>
                                 <td>{{ $venda->id }}</td>
                                 <td>{{ $venda->cliente->nome }}</td>
                                 <td>{{ $venda->user->nome }}</td>
                                 <td>R$ {{ number_format($venda->total, 2, ',', '.') }}</td>
                                 @switch($venda->status)
-                                    @case(1)
-                                        <td><span class="badge badge-success">Finalizado</span></td>
+                                    @case('Finalizado')
+                                        <td><span class="badge badge-success">Finalizada</span></td>
                                         @break
-                                    @case(2)
+                                    @case('Aberto')
                                         <td><span class="badge badge-info">Aberto</span></td>
                                         @break
-                                    @case(3)
-                                        <td><span class="badge badge-danger">Cancelado</span></td>
+                                    @case('Cancelada')
+                                        <td><span class="badge badge-danger">Cancelada</span></td>
                                         @break
                                 @endswitch
                                 <td>{{ date('d/m/Y H:i:s', strtotime($venda->created_at)) }}</td>
@@ -113,14 +112,22 @@
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                              aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Ações</div>
-                                            <a class="dropdown-item" href="#">Finalizar</a>
+                                            @if($venda->status === 'Aberto')
+                                                <a class="dropdown-item" href="#">Finalizar</a>
+                                            @endif
                                             <a class="dropdown-item"
                                                href="{{ route('vendas.show', ['id' => $venda->id]) }}">Detalhes</a>
-                                            <a class="dropdown-item" href="#">Deletar</a>
+                                            @if($venda->status === 'Aberto')
+                                                <a class="dropdown-item" href="#">Deletar</a>
+                                            @endif
                                         </div>
                                     </div>
                                 </td>
                             </tr>
+
+                            @php
+                                $total = $total + $venda->total
+                            @endphp
                         @empty
                             <tr>
                                 <td colspan="7" class="text-center">Não foram encontrados registros para serem
@@ -130,6 +137,12 @@
                         @endforelse
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12 centralizado">
+                    <label class="lblCifrao">R$&nbsp;</label><span
+                        class="spanTotal">{{ number_format($total, 2, ',', '.') }}</span>
                 </div>
             </div>
         </div>

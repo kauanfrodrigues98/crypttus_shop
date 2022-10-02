@@ -45,9 +45,9 @@ class UserRepository implements UserInterface
     {
         if (!empty($search)) {
             return $this->model->select('id', 'nome')
-                ->where('nome', 'LIKE', "%" . $search . "%")
+                ->where([['nome', 'LIKE', "%" . $search . "%"], ['id', '<>', 1]])
                 ->get();
         }
-        return $this->model->select('id', 'nome')->get();
+        return $this->model->select('id', 'nome')->where('id', '<>', 1)->get();
     }
 }
