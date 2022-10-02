@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateColecoesRequest;
 use App\Models\Colecoes;
 use App\Services\ColecoesServices;
 use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\Request;
 
 class ColecoesController extends Controller
 {
@@ -91,11 +92,16 @@ class ColecoesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Colecoes  $colecoes
+     * @param \App\Models\Colecoes $colecoes
      * @return \Illuminate\Http\Response
      */
     public function destroy(Colecoes $colecoes)
     {
         //
+    }
+
+    public function get(Request $request)
+    {
+        return ColecoesServices::get($request);
     }
 }

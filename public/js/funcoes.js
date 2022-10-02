@@ -560,13 +560,13 @@ function somenteNumeros(e) {
  * @param {string} [type] - Define o tipo da requisição se é POST ou GET
  */
 function requisicao(url, dados = "", type = 'post') {
-    let base = base_url;
-
     let lblButton = $(".button_request").html();
+
+    console.log(window.location.origin + url);
 
     var data = $.ajax({
         cache: true,
-        url: base + url,
+        url: window.location.origin + url,
         async: false,
         type: type,
         datatype: 'json',
@@ -584,6 +584,8 @@ function requisicao(url, dados = "", type = 'post') {
             $(".button_request").removeAttr('disabled').html(lblButton);
         }
     });
+
+    console.log(data);
 
     // return data.responseText;
     return JSON.parse(data.responseText);

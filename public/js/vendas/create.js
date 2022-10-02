@@ -7,13 +7,14 @@ $(document).ready(function () {
 
     $("#produto").select2({
         ajax: {
-            url: window.location.origin + "/get/produtos",
+            url: window.location.origin + "/get/venda/codigo_grade",
             method: 'post',
             dataType: 'json',
             data: function (params) {
                 return {
                     search: params.term, // search term
                     page: params.page,
+                    venda: true,
                     _token: $("input[name='_token']").val()
                 };
             },
@@ -173,6 +174,17 @@ const adicionar = () => {
 
     if (empty(codigo) || empty(descricao) || empty(quantidade) || empty(preco_unit) || empty(desconto_real) || empty(subtotal)) {
         alert('Todos os campos devem ser informados.')
+        return false
+    }
+
+    let temEstoque = requisicao('/tem_estoque', {
+        codigo: codigo,
+        quantidade: quantidade,
+        _token: $("input[name='_token']").val()
+    })
+
+    if (temEstoque.quantidade <= quantidade) {
+        swal('Aviso!', 'A quantidade informada é maior que o estoque disponivel.', 'warning')
         return false
     }
 

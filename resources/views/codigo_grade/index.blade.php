@@ -73,7 +73,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">Não foram encontrados registros para serem
+                                <td colspan="6" class="text-center">Não foram encontrados registros para serem
                                     exibidos
                                 </td>
                             </tr>

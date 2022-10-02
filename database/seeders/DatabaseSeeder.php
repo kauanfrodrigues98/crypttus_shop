@@ -33,10 +33,5 @@ class DatabaseSeeder extends Seeder
             TamanhosSeeder::class,
             CoresSeeder::class,
         ]);
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }

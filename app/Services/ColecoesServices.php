@@ -43,4 +43,11 @@ class ColecoesServices
             return Response($e->getMessage(), 430);
         }
     }
+
+    public static function get($request)
+    {
+        $search = $request->search ?? '';
+
+        return (new ColecoesRepository(new Colecoes))->get($search);
+    }
 }

@@ -113,6 +113,10 @@ Route::prefix('get')->group(function () {
     Route::post('clientes', [ClientesController::class, 'get'])->name('get.clientes');
     Route::post('fornecedores', [FornecedoresController::class, 'get'])->name('get.fornecedores');
     Route::post('codigo_grade', [CodigoGradesController::class, 'get'])->name('get.codigo_grade');
+    Route::post('colecao', [ColecoesController::class, 'get'])->name('get.colecao');
+    Route::post('venda/codigo_grade', [CodigoGradesController::class, 'getForVenda'])->name('get.codigo_grade');
 });
+
+Route::post('tem_estoque', [EstoquesController::class, 'temEstoque'])->name('tem_estoque');
 
 Route::get('logout', [UserController::class, 'logout'])->name('logout');

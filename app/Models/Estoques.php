@@ -14,4 +14,9 @@ class Estoques extends Model
         'quantidade',
         'quantidade_anterior'
     ];
+
+    public function codigoGrade()
+    {
+        return $this->belongsTo(CodigoGrades::class, 'codigo_grade', 'codigo_grade');
+    }
 }

@@ -16,22 +16,6 @@ class TamanhosFactory extends Factory
      */
     public function definition()
     {
-        return [
-            [
-                'codigo' => 'P',
-                'tamanho' => 'Pequeno',
-                'descricao' => '',
-            ],
-            [
-                'codigo' => 'M',
-                'tamanho' => 'Médio',
-                'descricao' => '',
-            ],
-            [
-                'codigo' => 'G',
-                'tamanho' => 'Grande',
-                'descricao' => '',
-            ],
-        ];
+        //
     }
 }

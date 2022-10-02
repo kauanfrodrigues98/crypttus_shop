@@ -71,4 +71,11 @@ class CodigoGradesServices
 
         return (new CodigoGradesRepository(new CodigoGrades))->get($search);
     }
+
+    public static function getForVenda($request)
+    {
+        $search = $request->search ?? '';
+
+        return (new CodigoGradesRepository(new CodigoGrades))->getForVenda($search);
+    }
 }

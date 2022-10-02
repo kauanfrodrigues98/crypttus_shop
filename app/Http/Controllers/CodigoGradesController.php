@@ -104,4 +104,9 @@ class CodigoGradesController extends Controller
     {
         return CodigoGradesServices::get($request);
     }
+
+    public function getForVenda(Request $request)
+    {
+        return CodigoGradesServices::getForVenda($request);
+    }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEstoquesRequest;
 use App\Http\Requests\UpdateEstoquesRequest;
 use App\Models\Estoques;
+use App\Services\EstoquesServices;
+use Symfony\Component\HttpFoundation\Request;
 
 class EstoquesController extends Controller
 {
@@ -82,5 +84,10 @@ class EstoquesController extends Controller
     public function destroy(Estoques $estoques)
     {
         //
+    }
+
+    public function temEstoque(Request $request)
+    {
+        return EstoquesServices::temEstoque($request);
     }
 }

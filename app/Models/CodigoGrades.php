@@ -41,4 +41,9 @@ class CodigoGrades extends Model
     {
         return $this->hasOne(ProdutoVendas::class, 'codigo_grade', 'codigo_grade');
     }
+
+    public function estoques()
+    {
+        return $this->hasOne(Estoques::class, 'codigo_grade', 'codigo_grade');
+    }
 }

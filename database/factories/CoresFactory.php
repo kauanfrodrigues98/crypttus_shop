@@ -16,32 +16,6 @@ class CoresFactory extends Factory
      */
     public function definition()
     {
-        return [
-            [
-                'codigo' => 'PT',
-                'cor' => 'Preto',
-                'descricao' => '',
-            ],
-            [
-                'codigo' => 'VR',
-                'cor' => 'Vermelho',
-                'descricao' => '',
-            ],
-            [
-                'codigo' => 'VD',
-                'cor' => 'Verde',
-                'descricao' => '',
-            ],
-            [
-                'codigo' => 'BR',
-                'cor' => 'Branco',
-                'descricao' => '',
-            ],
-            [
-                'codigo' => 'ND',
-                'cor' => 'Nude',
-                'descricao' => '',
-            ],
-        ];
+        //
     }
 }
