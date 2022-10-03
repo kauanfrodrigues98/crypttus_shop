@@ -1,3 +1,7 @@
+@section('styles')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+@endsection
+
 @extends('app')
 
 @section('tab-title', 'Coleções')
@@ -73,4 +77,9 @@
             </div>
         </div>
     </div>
+    @section('scripts')
+        <script type="text/javascript" charset="utf8"
+                src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+        <script src="{{ asset('js/colecoes/index.js') }}"></script>
+    @endsection
 @endsection
