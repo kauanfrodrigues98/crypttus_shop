@@ -10,6 +10,264 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
+    const ACESSOS = [
+        'Funcionarios' => [
+            [
+                'label' => 'Acesso Total',
+                'value' => 'adminFuncionarios',
+            ],
+            [
+                'label' => 'Relatório',
+                'value' => 'relatorioFuncionarios',
+            ],
+            [
+                'label' => 'Cadastrar',
+                'value' => 'cadastrarFuncionarios',
+            ],
+            [
+                'label' => 'Atualizar',
+                'value' => 'atualizarFuncionarios',
+            ],
+            [
+                'label' => 'Deletar',
+                'value' => 'deletarFuncionarios',
+            ]
+        ],
+        'Clientes' => [
+            [
+                'label' => 'Acesso Total',
+                'value' => 'adminClientes',
+            ],
+            [
+                'label' => 'Relatório',
+                'value' => 'relatorioClientes',
+            ],
+            [
+                'label' => 'Cadastrar',
+                'value' => 'cadastrarClientes',
+            ],
+            [
+                'label' => 'Atualizar',
+                'value' => 'atualizarClientes',
+            ],
+            [
+                'label' => 'Deletar',
+                'value' => 'deletarClientes',
+            ]
+        ],
+
+        'Fornecedores' => [
+            [
+                'label' => 'Acesso Total',
+                'value' => 'adminFornecedores',
+            ],
+            [
+                'label' => 'Relatório',
+                'value' => 'relatorioFornecedores',
+            ],
+            [
+                'label' => 'Cadastrar',
+                'value' => 'cadastrarFornecedores',
+            ],
+            [
+                'label' => 'Atualizar',
+                'value' => 'atualizarFornecedores',
+            ],
+            [
+                'label' => 'Deletar',
+                'value' => 'deletarFornecedores',
+            ]
+        ],
+
+        'Produtos' => [
+            [
+                'label' => 'Acesso Total',
+                'value' => 'adminProdutos',
+            ],
+            [
+                'label' => 'Relatório',
+                'value' => 'relatorioProdutos',
+            ],
+            [
+                'label' => 'Cadastrar',
+                'value' => 'cadastrarProdutos',
+            ],
+            [
+                'label' => 'Atualizar',
+                'value' => 'atualizarProdutos',
+            ],
+            [
+                'label' => 'Deletar',
+                'value' => 'deletarProdutos',
+            ]
+        ],
+
+        'Tamanhos' => [
+            [
+                'label' => 'Acesso Total',
+                'value' => 'adminTamanhos',
+            ],
+            [
+                'label' => 'Relatório',
+                'value' => 'relatorioTamanhos',
+            ],
+            [
+                'label' => 'Cadastrar',
+                'value' => 'cadastrarTamanhos',
+            ],
+            [
+                'label' => 'Atualizar',
+                'value' => 'atualizarTamanhos',
+            ],
+            [
+                'label' => 'Deletar',
+                'value' => 'deletarTamanhos',
+            ]
+        ],
+
+        'Cores' => [
+            [
+                'label' => 'Acesso Total',
+                'value' => 'adminCores',
+            ],
+            [
+                'label' => 'Relatório',
+                'value' => 'relatorioCores',
+            ],
+            [
+                'label' => 'Cadastrar',
+                'value' => 'cadastrarCores',
+            ],
+            [
+                'label' => 'Atualizar',
+                'value' => 'atualizarCores',
+            ],
+            [
+                'label' => 'Deletar',
+                'value' => 'deletarCores',
+            ]
+        ],
+
+        'Codigo Grade' => [
+            [
+                'label' => 'Acesso Total',
+                'value' => 'adminCodigoGrade',
+            ],
+            [
+                'label' => 'Relatório',
+                'value' => 'relatorioCodigoGrade',
+            ],
+            [
+                'label' => 'Cadastrar',
+                'value' => 'cadastrarCodigoGrade',
+            ],
+            [
+                'label' => 'Atualizar',
+                'value' => 'atualizarCodigoGrade',
+            ],
+            [
+                'label' => 'Deletar',
+                'value' => 'deletarCodigoGrade',
+            ]
+        ],
+
+        'Coleções' => [
+            [
+                'label' => 'Acesso Total',
+                'value' => 'adminColecoes',
+            ],
+            [
+                'label' => 'Relatório',
+                'value' => 'relatorioColecoes',
+            ],
+            [
+                'label' => 'Cadastrar',
+                'value' => 'cadastrarColecoes',
+            ],
+            [
+                'label' => 'Atualizar',
+                'value' => 'atualizarColecoes',
+            ],
+            [
+                'label' => 'Deletar',
+                'value' => 'deletarColecoes',
+            ]
+        ],
+
+        'Recebimentos' => [
+            [
+                'label' => 'Acesso Total',
+                'value' => 'adminRecebimentos',
+            ],
+            [
+                'label' => 'Relatório',
+                'value' => 'relatorioRecebimentos',
+            ],
+            [
+                'label' => 'Cadastrar',
+                'value' => 'cadastrarRecebimentos',
+            ],
+            [
+                'label' => 'Atualizar',
+                'value' => 'atualizarRecebimentos',
+            ],
+            [
+                'label' => 'Deletar',
+                'value' => 'deletarRecebimentos',
+            ]
+        ],
+
+        'Estoque' => [
+            [
+                'label' => 'Acesso Total',
+                'value' => 'adminEstoque',
+            ],
+            [
+                'label' => 'Relatório',
+                'value' => 'relatorioEstoque',
+            ],
+            [
+                'label' => 'Cadastrar',
+                'value' => 'cadastrarEstoque',
+            ],
+            [
+                'label' => 'Atualizar',
+                'value' => 'atualizarEstoque',
+            ],
+            [
+                'label' => 'Deletar',
+                'value' => 'deletarEstoque',
+            ]
+        ],
+
+        'Vendas' => [
+            [
+                'label' => 'Acesso Total',
+                'value' => 'adminVendas',
+            ],
+            [
+                'label' => 'Relatório',
+                'value' => 'relatorioVendas',
+            ],
+            [
+                'label' => 'Abrir Venda',
+                'value' => 'cadastrarVendas',
+            ],
+            [
+                'label' => 'Atualizar',
+                'value' => 'atualizarVendas',
+            ],
+            [
+                'label' => 'Finalizar',
+                'value' => 'finalizarVendas',
+            ],
+            [
+                'label' => 'Deletar',
+                'value' => 'deletarVendas',
+            ],
+        ],
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +282,7 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('funcionarios.create');
+        return view('funcionarios.create')->with(['acessos' => self::ACESSOS]);
     }
 
     /**
