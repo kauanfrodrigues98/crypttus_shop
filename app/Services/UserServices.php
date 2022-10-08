@@ -47,9 +47,19 @@ class UserServices
 
             $repository = (new UserRepository(new User))->store($dados);
 
-            if(!$repository)
-            {
+            if (!$repository) {
                 throw new CustomException('Não foi possível cadastrar funcionário.');
+            }
+
+            $id = $repository->id;
+
+            if (!empty($request->acessos)) {
+                foreach ($request->acessos as $acesso) {
+                    $data['user_id'] = $id;
+                    $data['acesso'] = $acesso;
+
+                    AcessosServices::store($data);
+                }
             }
 
             return Response('Funcionário cadastrado com sucesso.', 200);

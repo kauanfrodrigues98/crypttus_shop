@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Models\User;
 use App\Services\UserServices;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Request;
@@ -271,34 +274,42 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(): View
     {
+//        $this->authorize('view', User::class);
+
         $funcionarios = UserServices::findAll();
 
         return view('funcionarios.index')->with(['users' => $funcionarios]);
     }
 
-    public function create()
+    /**
+     * Display the form
+     *
+     * @return View
+     */
+    public function create(): View
     {
+        $this->authorize('view', User::class);
+
         return view('funcionarios.create')->with(['acessos' => self::ACESSOS]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\StoreUserRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param App\Http\Requests\StoreUserRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request): RedirectResponse
     {
         $service = UserServices::store($request);
 
         Session::flash('message', $service->getContent());
 
-        if($service->getStatusCode() !== 200)
-        {
+        if ($service->getStatusCode() !== 200) {
             Session::flash('status', 'danger');
             return back()->withInput($request->only(['usuario', 'senha']));
         }

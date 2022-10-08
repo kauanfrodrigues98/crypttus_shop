@@ -28,7 +28,9 @@
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                      aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Ações</div>
-                    <a class="dropdown-item" href="{{ route('user.create') }}">Novo Funcionário</a>
+                    @can('create', 'App\Models\User')
+                        <a class="dropdown-item" href="{{ route('user.create') }}">Novo Funcionário</a>
+                    @endcan
                     <a class="dropdown-item" href="#">Exportar PDF</a>
                     <a class="dropdown-item" href="#">Exportar Excel</a>
                 </div>
@@ -61,12 +63,16 @@
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                              aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Ações</div>
-                                            <a class="dropdown-item" href="#">Detalhes</a>
-                                            <a class="dropdown-item" href="#">Deletar</a>
+                                            @can('view', 'App\Models\User')
+                                                <a class="dropdown-item" href="#">Detalhes</a>
+                                            @endcan
+                                            @can('delete', 'App\Models\User')
+                                                <a class="dropdown-item" href="#">Deletar</a>
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>
-{{--                                    <td><a href="#" class="btn btn-primary btn-sm">Detalhes</a></td>--}}
+                                {{--                                    <td><a href="#" class="btn btn-primary btn-sm">Detalhes</a></td>--}}
                             </tr>
                         @empty
                             <tr>

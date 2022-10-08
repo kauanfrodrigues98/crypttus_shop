@@ -13,6 +13,7 @@ use App\Http\Controllers\{ClientesController,
     UserController,
     VendasController,
 };
+use App\Models\{Clientes, User,};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,15 +37,15 @@ Route::middleware('auth')->group(function() {
     Route::get('home', [HomeController::class, 'index'])->name('home');
 
     Route::prefix('funcionarios')->group(function () {
-        Route::get('index', [UserController::class, 'index'])->name('user.index');
-        Route::get('cadastro', [UserController::class, 'create'])->name('user.create');
-        Route::post('store', [UserController::class, 'store'])->name('user.store');
+        Route::get('index', [UserController::class, 'index'])->name('user.index')->can('view', User::class);
+        Route::get('cadastro', [UserController::class, 'create'])->name('user.create')->can('create', User::class);
+        Route::post('store', [UserController::class, 'store'])->name('user.store')->can('create', User::class);
     });
 
     Route::prefix('clientes')->group(function () {
-        Route::get('index', [ClientesController::class, 'index'])->name('clientes.index');
-        Route::get('cadastro', [ClientesController::class, 'create'])->name('clientes.create');
-        Route::post('store', [ClientesController::class, 'store'])->name('clientes.store');
+        Route::get('index', [ClientesController::class, 'index'])->name('clientes.index')->can('view', Clientes::class);
+        Route::get('cadastro', [ClientesController::class, 'create'])->name('clientes.create')->can('create', Clientes::class);
+        Route::post('store', [ClientesController::class, 'store'])->name('clientes.store')->can('store', Clientes::class);
     });
 
     Route::prefix('produtos')->group(function () {
