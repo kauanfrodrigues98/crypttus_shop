@@ -46,6 +46,8 @@ Route::middleware('auth')->group(function() {
         Route::get('index', [ClientesController::class, 'index'])->name('clientes.index')->can('view', Clientes::class);
         Route::get('cadastro', [ClientesController::class, 'create'])->name('clientes.create')->can('create', Clientes::class);
         Route::post('store', [ClientesController::class, 'store'])->name('clientes.store')->can('store', Clientes::class);
+        Route::get('detalhes/{id}', [ClientesController::class, 'show'])->name('clientes.show')->can('update', Clientes::class);
+        Route::post('update', [ClientesController::class, 'update'])->name('clientes.update')->can('update', Clientes::class);
     });
 
     Route::prefix('produtos')->group(function () {

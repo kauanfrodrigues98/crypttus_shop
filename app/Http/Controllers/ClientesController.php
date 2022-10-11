@@ -63,9 +63,11 @@ class ClientesController extends Controller
      * @param  \App\Models\Clientes  $clientes
      * @return \Illuminate\Http\Response
      */
-    public function show(Clientes $clientes)
+    public function show(Clientes $clientes, int $id)
     {
-        //
+        $cliente = $clientes->find($id);
+
+        return view('clientes.update')->with(['cliente' => $cliente, 'ufs' => FuncoesHelpers::ESTADOS_BRASILEIROS]);
     }
 
     /**
@@ -88,7 +90,7 @@ class ClientesController extends Controller
      */
     public function update(UpdateClientesRequest $request, Clientes $clientes)
     {
-        //
+        dd($request->all());
     }
 
     /**

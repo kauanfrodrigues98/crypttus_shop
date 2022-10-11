@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Clientes;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateClientesRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateClientesRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->can('update', Clientes::class);
     }
 
     /**
@@ -24,7 +25,9 @@ class UpdateClientesRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nome' => 'required',
+            'data_nascimento' => 'required',
+            'celular' => 'required',
         ];
     }
 }

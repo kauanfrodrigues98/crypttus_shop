@@ -67,8 +67,9 @@
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                              aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Ações</div>
-                                            @can('view', 'App\Models\Clientes')
-                                                <a class="dropdown-item" href="#">Detalhes</a>
+                                            @can('update', 'App\Models\Clientes')
+                                                <a class="dropdown-item"
+                                                   href="{{ route('clientes.show', ['id' => $cliente->id]) }}">Detalhes</a>
                                             @endcan
                                             @can('delete', 'App\Models\Clientes')
                                                 <a class="dropdown-item" href="#">Deletar</a>
