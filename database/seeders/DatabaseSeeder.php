@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Acessos;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -25,7 +26,52 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
-        User::factory(10)->create();
+        Acessos::factory()->create([
+            'user_id' => 1,
+            'acesso' => 'adminFuncionarios'
+        ]);
+        Acessos::factory()->create([
+            'user_id' => 1,
+            'acesso' => 'adminClientes'
+        ]);
+        Acessos::factory()->create([
+            'user_id' => 1,
+            'acesso' => 'adminFornecedores'
+        ]);
+        Acessos::factory()->create([
+            'user_id' => 1,
+            'acesso' => 'adminProdutos'
+        ]);
+        Acessos::factory()->create([
+            'user_id' => 1,
+            'acesso' => 'adminTamanhos'
+        ]);
+        Acessos::factory()->create([
+            'user_id' => 1,
+            'acesso' => 'adminCores'
+        ]);
+        Acessos::factory()->create([
+            'user_id' => 1,
+            'acesso' => 'adminCodigoGrade'
+        ]);
+        Acessos::factory()->create([
+            'user_id' => 1,
+            'acesso' => 'adminColecoes'
+        ]);
+        Acessos::factory()->create([
+            'user_id' => 1,
+            'acesso' => 'adminRecebimentos'
+        ]);
+        Acessos::factory()->create([
+            'user_id' => 1,
+            'acesso' => 'adminEstoque'
+        ]);
+        Acessos::factory()->create([
+            'user_id' => 1,
+            'acesso' => 'adminVendas'
+        ]);
+
+//        User::factory(10)->create();
 
         $this->call([
             ClientesSeeder::class,

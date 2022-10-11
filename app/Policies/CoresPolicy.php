@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Cores;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class CoresPolicy
 {
@@ -18,7 +19,13 @@ class CoresPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminCores') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -29,7 +36,13 @@ class CoresPolicy
      */
     public function view(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminCores' || $value->acesso === 'relatorioCores') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -40,7 +53,13 @@ class CoresPolicy
      */
     public function create(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminCores' || $value->acesso === 'cadastrarCores') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -51,7 +70,13 @@ class CoresPolicy
      */
     public function update(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminCores' || $value->acesso === 'atualizarCores') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -63,7 +88,13 @@ class CoresPolicy
      */
     public function delete(User $user, Cores $cores)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminCores' || $value->acesso === 'deletarCores') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**

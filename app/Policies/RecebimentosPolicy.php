@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Recebimentos;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class RecebimentosPolicy
 {
@@ -18,7 +19,13 @@ class RecebimentosPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminRecebimentos') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -29,7 +36,13 @@ class RecebimentosPolicy
      */
     public function view(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminRecebimentos' || $value->acesso === 'relatorioRecebimentos') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -40,7 +53,13 @@ class RecebimentosPolicy
      */
     public function create(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminRecebimentos' || $value->acesso === 'cadastrarRecebimentos') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -51,7 +70,13 @@ class RecebimentosPolicy
      */
     public function update(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminRecebimentos' || $value->acesso === 'atualizarRecebimentos') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -63,7 +88,13 @@ class RecebimentosPolicy
      */
     public function delete(User $user, Recebimentos $recebimentos)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminRecebimentos' || $value->acesso === 'deletarRecebimentos') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Estoques;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class EstoquesPolicy
 {
@@ -18,7 +19,13 @@ class EstoquesPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminEstoque') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -30,7 +37,13 @@ class EstoquesPolicy
      */
     public function view(User $user, Estoques $estoques)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminEstoque' || $value->acesso === 'relatorioEstoque') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -41,7 +54,13 @@ class EstoquesPolicy
      */
     public function create(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminEstoque' || $value->acesso === 'cadastrarEstoque') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -53,7 +72,13 @@ class EstoquesPolicy
      */
     public function update(User $user, Estoques $estoques)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminEstoque' || $value->acesso === 'atualizarEstoque') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -65,7 +90,13 @@ class EstoquesPolicy
      */
     public function delete(User $user, Estoques $estoques)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminEstoque' || $value->acesso === 'deletarEstoque') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**

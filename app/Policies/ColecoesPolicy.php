@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Colecoes;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class ColecoesPolicy
 {
@@ -18,7 +19,13 @@ class ColecoesPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminColecoes') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -29,7 +36,13 @@ class ColecoesPolicy
      */
     public function view(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminColecoes' || $value->acesso === 'relatorioColecoes') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -40,7 +53,13 @@ class ColecoesPolicy
      */
     public function create(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminColecoes' || $value->acesso === 'cadastrarColecoes') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -51,7 +70,13 @@ class ColecoesPolicy
      */
     public function update(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminColecoes' || $value->acesso === 'atualizarColecoes') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -63,7 +88,13 @@ class ColecoesPolicy
      */
     public function delete(User $user, Colecoes $colecoes)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminColecoes' || $value->acesso === 'deletarColecoes') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**

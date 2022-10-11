@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\CodigoGrades;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class CodigoGradesPolicy
 {
@@ -18,7 +19,13 @@ class CodigoGradesPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminCodigoGrade') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -29,7 +36,13 @@ class CodigoGradesPolicy
      */
     public function view(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminCodigoGrade' || $value->acesso === 'relatorioCodigoGrade') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -40,7 +53,13 @@ class CodigoGradesPolicy
      */
     public function create(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminCodigoGrade' || $value->acesso === 'cadastrarCodigoGrade') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -51,7 +70,13 @@ class CodigoGradesPolicy
      */
     public function update(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminCodigoGrade' || $value->acesso === 'atualizarCodigoGrade') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -63,7 +88,13 @@ class CodigoGradesPolicy
      */
     public function delete(User $user, CodigoGrades $codigoGrades)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminCodigoGrade' || $value->acesso === 'deletarCodigoGrade') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Produtos;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class ProdutosPolicy
 {
@@ -18,7 +19,13 @@ class ProdutosPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminProdutos') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -29,7 +36,13 @@ class ProdutosPolicy
      */
     public function view(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminProdutos' || $value->acesso === 'relatorioProdutos') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -40,7 +53,13 @@ class ProdutosPolicy
      */
     public function create(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminProdutos' || $value->acesso === 'cadastrarProdutos') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -51,7 +70,13 @@ class ProdutosPolicy
      */
     public function update(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminProdutos' || $value->acesso === 'atualizarProdutos') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -63,7 +88,13 @@ class ProdutosPolicy
      */
     public function delete(User $user, Produtos $produtos)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminProdutos' || $value->acesso === 'deletarProdutos') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**

@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Fornecedores;
+use App\Models\Fornecedoreses;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class FornecedoresPolicy
+class FornecedoresesPolicy
 {
     use HandlesAuthorization;
 
@@ -18,7 +18,13 @@ class FornecedoresPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminFornecedores') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -29,7 +35,13 @@ class FornecedoresPolicy
      */
     public function view(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminFornecedores' || $value->acesso === 'relatorioFornecedores') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -40,7 +52,13 @@ class FornecedoresPolicy
      */
     public function create(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminFornecedores' || $value->acesso === 'cadastrarFornecedores') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -51,29 +69,41 @@ class FornecedoresPolicy
      */
     public function update(User $user)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminFornecedores' || $value->acesso === 'atualizarFornecedores') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\Fornecedores $fornecedores
+     * @param \App\Models\Fornecedoreses $fornecedores
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Fornecedores $fornecedores)
+    public function delete(User $user, Fornecedoreses $fornecedores)
     {
-        //
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminFornecedores' || $value->acesso === 'deletarFornecedores') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\Fornecedores $fornecedores
+     * @param \App\Models\Fornecedoreses $fornecedores
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Fornecedores $fornecedores)
+    public function restore(User $user, Fornecedoreses $fornecedores)
     {
         //
     }
@@ -82,10 +112,10 @@ class FornecedoresPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\Fornecedores $fornecedores
+     * @param \App\Models\Fornecedoreses $fornecedores
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Fornecedores $fornecedores)
+    public function forceDelete(User $user, Fornecedoreses $fornecedores)
     {
         //
     }

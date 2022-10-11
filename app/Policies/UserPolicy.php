@@ -18,7 +18,13 @@ class UserPolicy
      */
     public function viewAny(User $user): Response|bool
     {
-        return $user->acessos->acesso === 'adminFuncionario';
+        foreach ($user->acessos as $value) {
+            if ($value->acesso === 'adminFuncionarios') {
+                return Response::allow();
+            }
+        }
+
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
