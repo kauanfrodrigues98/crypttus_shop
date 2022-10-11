@@ -28,7 +28,9 @@
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                      aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Ações</div>
-                    <a class="dropdown-item" href="{{ route('codigo_grade.create') }}">Novo Código Grade</a>
+                    @can('create', 'App\Models\CodigoGrades')
+                        <a class="dropdown-item" href="{{ route('codigo_grade.create') }}">Novo Código Grade</a>
+                    @endcan
                     <a class="dropdown-item" href="#">Exportar PDF</a>
                     <a class="dropdown-item" href="#">Exportar Excel</a>
                 </div>
@@ -65,7 +67,9 @@
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                              aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Ações</div>
-                                            <a class="dropdown-item" href="#">Detalhes</a>
+                                            @can('view', 'App\Models\CodigoGrades')
+                                                <a class="dropdown-item" href="#">Detalhes</a>
+                                            @endcan
                                             <a class="dropdown-item" href="#">Deletar</a>
                                         </div>
                                     </div>

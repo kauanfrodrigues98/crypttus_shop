@@ -28,7 +28,9 @@
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                      aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Ações</div>
-                    <a class="dropdown-item" href="{{ route('produtos.create') }}">Novo Produto</a>
+                    @can('create', 'App\Models\Produtos')
+                        <a class="dropdown-item" href="{{ route('produtos.create') }}">Novo Produto</a>
+                    @endcan
                     <a class="dropdown-item" href="#">Exportar PDF</a>
                     <a class="dropdown-item" href="#">Exportar Excel</a>
                 </div>
@@ -63,8 +65,10 @@
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                              aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Ações</div>
-                                            <a class="dropdown-item"
-                                               href="{{ route('produtos.show', ['id' => $produto->id]) }}">Detalhes</a>
+                                            @can('view', 'App\Models\Produtos')
+                                                <a class="dropdown-item"
+                                                   href="{{ route('produtos.show', ['id' => $produto->id]) }}">Detalhes</a>
+                                            @endcan
                                             <a class="dropdown-item" href="#">Deletar</a>
                                         </div>
                                     </div>

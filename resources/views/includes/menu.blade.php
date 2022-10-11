@@ -6,18 +6,21 @@ const MENUS = [
         'route' => 'user.index',
         'icon' => 'fas fa-fw fa-user',
         'submenu' => false,
+        'modelAccess' => 'App\Models\User',
     ],
     [
         'name' => 'Clientes',
         'route' => 'clientes.index',
         'icon' => 'fas fa-fw fa-users',
         'submenu' => false,
+        'modelAccess' => 'App\Models\Clientes',
     ],
     [
         'name' => 'Fornecedores',
         'route' => 'fornecedores.index',
         'icon' => 'fas fa-fw fa-truck',
         'submenu' => false,
+        'modelAccess' => 'App\Models\Fornecedores',
     ],
     [
         'name' => 'Produtos',
@@ -27,23 +30,28 @@ const MENUS = [
         'sub' => [
             [
                 'name' => 'Produtos',
-                'route' => 'produtos.index'
+                'route' => 'produtos.index',
+                'modelAccess' => 'App\Models\Produtos',
             ],
             [
                 'name' => 'Tamanhos',
-                'route' => 'tamanhos.index'
+                'route' => 'tamanhos.index',
+                'modelAccess' => 'App\Models\Tamanhos',
             ],
             [
                 'name' => 'Cores',
-                'route' => 'cores.index'
+                'route' => 'cores.index',
+                'modelAccess' => 'App\Models\Cores',
             ],
             [
                 'name' => 'Código Grade',
-                'route' => 'codigo_grade.index'
+                'route' => 'codigo_grade.index',
+                'modelAccess' => 'App\Models\CodigoGrades',
             ],
             [
                 'name' => 'Coleções',
-                'route' => 'colecoes.index'
+                'route' => 'colecoes.index',
+                'modelAccess' => 'App\Models\Colecoes',
             ],
         ],
     ],
@@ -52,18 +60,21 @@ const MENUS = [
         'route' => 'recebimentos.index',
         'icon' => 'fas fa-fw fa-truck',
         'submenu' => false,
+        'modelAccess' => 'App\Models\Recebimentos',
     ],
     [
         'name' => 'Estoque',
         'route' => 'estoque.index',
         'icon' => 'fas fa-fw fa-box',
         'submenu' => false,
+        'modelAccess' => 'App\Models\Estoque',
     ],
     [
         'name' => 'Vendas',
         'route' => 'vendas.index',
         'icon' => 'fas fa-solid fa-box-open',
         'submenu' => false,
+        'modelAccess' => 'App\Models\Vendas',
     ],
 ];
 
@@ -101,27 +112,32 @@ const MENUS = [
 
         @foreach(MENUS as $menu)
             @if($menu['submenu'])
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                           aria-expanded="true" aria-controls="collapseTwo">
-                            <i class="{{ $menu['icon'] }}"></i>
-                            <span>{{ $menu['name'] }}</span>
-                        </a>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                            <div class="bg-white py-2 collapse-inner rounded">
-                                <h6 class="collapse-header">Submenu</h6>
-                                @for($index = 0; $index < count($menu['sub']); $index++)
-                                    <a class="collapse-item" href="{{ route($menu['sub'][$index]['route']) }}">{{ $menu['sub'][$index]['name'] }}</a>
-                                @endfor
-                            </div>
-                        </div>
-                    </li>
-            @else
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route($menu['route']) }}">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                       aria-expanded="true" aria-controls="collapseTwo">
                         <i class="{{ $menu['icon'] }}"></i>
-                        <span>{{ $menu['name'] }}</span></a>
+                        <span>{{ $menu['name'] }}</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Submenu</h6>
+                            @for($index = 0; $index < count($menu['sub']); $index++)
+                                @can('view', $menu['sub'][$index]['modelAccess'])
+                                    <a class="collapse-item"
+                                       href="{{ route($menu['sub'][$index]['route']) }}">{{ $menu['sub'][$index]['name'] }}</a>
+                                @endcan
+                            @endfor
+                        </div>
+                    </div>
                 </li>
+            @else
+                @can('view', $menu['modelAccess'])
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route($menu['route']) }}">
+                            <i class="{{ $menu['icon'] }}"></i>
+                            <span>{{ $menu['name'] }}</span></a>
+                </li>
+                @endcan
             @endif
         @endforeach
 

@@ -60,7 +60,9 @@
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                      aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Ações</div>
-                    <a class="dropdown-item" href="{{ route('recebimentos.create') }}">Novo Recebimento</a>
+                    @can('create', 'App\Models\Recebimentos')
+                        <a class="dropdown-item" href="{{ route('recebimentos.create') }}">Novo Recebimento</a>
+                    @endcan
                     <a class="dropdown-item" href="#">Exportar PDF</a>
                     <a class="dropdown-item" href="#">Exportar Excel</a>
                 </div>
@@ -101,8 +103,10 @@
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                              aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Ações</div>
-                                            <a class="dropdown-item"
-                                               href="{{ route('recebimentos.show', ['id' => $recebimento->id]) }}">Detalhes</a>
+                                            @can('view', 'App\Models\Recebimentos')
+                                                <a class="dropdown-item"
+                                                   href="{{ route('recebimentos.show', ['id' => $recebimento->id]) }}">Detalhes</a>
+                                            @endcan
                                             <a class="dropdown-item" href="#">Deletar</a>
                                         </div>
                                     </div>

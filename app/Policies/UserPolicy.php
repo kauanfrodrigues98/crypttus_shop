@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
@@ -15,7 +16,7 @@ class UserPolicy
      * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): Response|bool
     {
         return $user->acessos->acesso === 'adminFuncionario';
     }
@@ -26,15 +27,15 @@ class UserPolicy
      * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user)
+    public function view(User $user): Response|bool
     {
         foreach ($user->acessos as $value) {
             if ($value->acesso === 'adminFuncionarios' || $value->acesso === 'relatorioFuncionarios') {
-                return true;
+                return Response::allow();
             }
         }
 
-        return false;
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -43,15 +44,15 @@ class UserPolicy
      * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user): Response|bool
     {
         foreach ($user->acessos as $value) {
             if ($value->acesso === 'adminFuncionarios' || $value->acesso === 'cadastrarFuncionarios') {
-                return true;
+                return Response::allow();
             }
         }
 
-        return false;
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -61,15 +62,15 @@ class UserPolicy
      * @param \App\Models\User $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user)
+    public function update(User $user): Response|bool
     {
         foreach ($user->acessos as $value) {
             if ($value->acesso === 'adminFuncionarios' || $value->acesso === 'atualizarFuncionarios') {
-                return true;
+                return Response::Allow();
             }
         }
 
-        return false;
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -79,15 +80,15 @@ class UserPolicy
      * @param \App\Models\User $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user)
+    public function delete(User $user): Response|bool
     {
         foreach ($user->acessos as $value) {
             if ($value->acesso === 'adminFuncionarios' || $value->acesso === 'deletarFuncionarios') {
-                return true;
+                return Response::allow();
             }
         }
 
-        return false;
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -101,11 +102,11 @@ class UserPolicy
     {
         foreach ($user->acessos as $value) {
             if ($value->acesso === 'adminFuncionarios' || $value->acesso === 'restaurarFuncionarios') {
-                return true;
+                return Response::allow();
             }
         }
 
-        return false;
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 
     /**
@@ -119,10 +120,10 @@ class UserPolicy
     {
         foreach ($user->acessos as $value) {
             if ($value->acesso === 'adminFuncionarios' || $value->acesso === 'deletarFuncionarios') {
-                return true;
+                return Response::allow();
             }
         }
 
-        return false;
+        return Response::deny('Acesso negado! Fale com o seu responsável.');
     }
 }

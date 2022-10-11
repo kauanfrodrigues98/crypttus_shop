@@ -25,10 +25,9 @@ class VendasPolicy
      * Determine whether the user can view the model.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\Vendas $vendas
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Vendas $vendas)
+    public function view(User $user)
     {
         //
     }
@@ -51,7 +50,7 @@ class VendasPolicy
      * @param \App\Models\Vendas $vendas
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Vendas $vendas)
+    public function update(User $user)
     {
         //
     }

@@ -25,10 +25,9 @@ class CodigoGradesPolicy
      * Determine whether the user can view the model.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\CodigoGrades $codigoGrades
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, CodigoGrades $codigoGrades)
+    public function view(User $user)
     {
         //
     }
@@ -48,10 +47,9 @@ class CodigoGradesPolicy
      * Determine whether the user can update the model.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\CodigoGrades $codigoGrades
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, CodigoGrades $codigoGrades)
+    public function update(User $user)
     {
         //
     }

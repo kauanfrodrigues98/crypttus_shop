@@ -25,10 +25,9 @@ class RecebimentosPolicy
      * Determine whether the user can view the model.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\Recebimentos $recebimentos
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Recebimentos $recebimentos)
+    public function view(User $user)
     {
         //
     }
@@ -48,10 +47,9 @@ class RecebimentosPolicy
      * Determine whether the user can update the model.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\Recebimentos $recebimentos
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Recebimentos $recebimentos)
+    public function update(User $user)
     {
         //
     }

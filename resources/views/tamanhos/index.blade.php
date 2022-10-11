@@ -28,7 +28,9 @@
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                      aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Ações</div>
-                    <a class="dropdown-item" href="{{ route('tamanhos.create') }}">Novo Tamanho</a>
+                    @can('create', 'App\Models\Tamanhos')
+                        <a class="dropdown-item" href="{{ route('tamanhos.create') }}">Novo Tamanho</a>
+                    @endcan
                     <a class="dropdown-item" href="#">Exportar PDF</a>
                     <a class="dropdown-item" href="#">Exportar Excel</a>
                 </div>

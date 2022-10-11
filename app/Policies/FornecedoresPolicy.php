@@ -25,10 +25,9 @@ class FornecedoresPolicy
      * Determine whether the user can view the model.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\Fornecedores $fornecedores
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Fornecedores $fornecedores)
+    public function view(User $user)
     {
         //
     }
@@ -48,10 +47,9 @@ class FornecedoresPolicy
      * Determine whether the user can update the model.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\Fornecedores $fornecedores
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Fornecedores $fornecedores)
+    public function update(User $user)
     {
         //
     }

@@ -28,7 +28,9 @@
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                      aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Ações</div>
-                    <a class="dropdown-item" href="{{ route('cores.create') }}">Nova Cor</a>
+                    @can('create', 'App\Models\Cores')
+                        <a class="dropdown-item" href="{{ route('cores.create') }}">Nova Cor</a>
+                    @endcan
                     <a class="dropdown-item" href="#">Exportar PDF</a>
                     <a class="dropdown-item" href="#">Exportar Excel</a>
                 </div>

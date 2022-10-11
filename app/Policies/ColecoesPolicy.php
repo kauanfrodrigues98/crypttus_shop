@@ -25,10 +25,9 @@ class ColecoesPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Colecoes  $colecoes
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Colecoes $colecoes)
+    public function view(User $user)
     {
         //
     }
@@ -48,10 +47,9 @@ class ColecoesPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Colecoes  $colecoes
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Colecoes $colecoes)
+    public function update(User $user)
     {
         //
     }
