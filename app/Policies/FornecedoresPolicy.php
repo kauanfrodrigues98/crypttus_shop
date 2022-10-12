@@ -5,8 +5,9 @@ namespace App\Policies;
 use App\Models\Fornecedoreses;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
-class FornecedoresesPolicy
+class FornecedoresPolicy
 {
     use HandlesAuthorization;
 
@@ -82,10 +83,9 @@ class FornecedoresesPolicy
      * Determine whether the user can delete the model.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\Fornecedoreses $fornecedores
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Fornecedoreses $fornecedores)
+    public function delete(User $user)
     {
         foreach ($user->acessos as $value) {
             if ($value->acesso === 'adminFornecedores' || $value->acesso === 'deletarFornecedores') {

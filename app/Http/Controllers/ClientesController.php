@@ -60,14 +60,14 @@ class ClientesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Clientes  $clientes
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Clientes $clientes
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show(Clientes $clientes, int $id)
     {
         $cliente = $clientes->find($id);
 
-        return view('clientes.update')->with(['cliente' => $cliente, 'ufs' => FuncoesHelpers::ESTADOS_BRASILEIROS]);
+        return view('clientes.update')->with(['clienteId' => $id, 'cliente' => $cliente, 'ufs' => FuncoesHelpers::ESTADOS_BRASILEIROS]);
     }
 
     /**
@@ -84,13 +84,24 @@ class ClientesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateClientesRequest  $request
-     * @param  \App\Models\Clientes  $clientes
-     * @return \Illuminate\Http\Response
+     * @param \App\Http\Requests\UpdateClientesRequest $request
+     * @param \App\Models\Clientes $clientes
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateClientesRequest $request, Clientes $clientes)
+    public function update(UpdateClientesRequest $request)
     {
-        dd($request->all());
+        $service = ClientesServices::update($request->clienteId, $request);
+
+        Session::flash('message', $service->getContent());
+
+        if ($service->getStatusCode() !== 200) {
+            Session::flash('status', 'danger');
+            return Response()->redirectToRoute('clientes.index');
+        }
+
+        Session::flash('status', 'success');
+
+        return Response()->redirectToRoute('clientes.index');
     }
 
     /**

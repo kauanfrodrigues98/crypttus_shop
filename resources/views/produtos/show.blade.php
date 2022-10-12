@@ -16,8 +16,9 @@
         </ol>
     </nav>
 
-    <form method="post" action="{{ route('produtos.store') }}">
+    <form method="post" action="{{ route('produtos.update') }}">
         @csrf
+        <input type="hidden" name="produtoId" value="{{ $produtoId }}">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Dados Principais</h6>
@@ -46,7 +47,6 @@
                         <label for="colecao">Coleção</label>
                         <select name="colecao" id="colecao" class="custom-select custom-select-sm" required>
                             <option value="">Selecione</option>
-                            <option value="1">Verão 2022</option>
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -62,12 +62,11 @@
                 </div>
             </div>
         </div>
-
-        {{--        <div class="row mt-2">--}}
-        {{--            <div class="col-md-4 offset-md-4">--}}
-        {{--                <button type="submit" class="btn btn-sm btn-success btn-block">Salvar</button>--}}
-        {{--            </div>--}}
-        {{--        </div>--}}
+        <div class="row mt-2">
+            <div class="col-md-4 offset-md-4">
+                <button type="submit" class="btn btn-sm btn-success btn-block">Salvar</button>
+            </div>
+        </div>
     </form>
 
     @section('scripts')

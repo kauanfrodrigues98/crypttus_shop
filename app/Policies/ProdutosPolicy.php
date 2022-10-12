@@ -17,7 +17,7 @@ class ProdutosPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): Response|bool
     {
         foreach ($user->acessos as $value) {
             if ($value->acesso === 'adminProdutos') {
@@ -34,7 +34,7 @@ class ProdutosPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user)
+    public function view(User $user): Response|bool
     {
         foreach ($user->acessos as $value) {
             if ($value->acesso === 'adminProdutos' || $value->acesso === 'relatorioProdutos') {
@@ -51,7 +51,7 @@ class ProdutosPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user): Response|bool
     {
         foreach ($user->acessos as $value) {
             if ($value->acesso === 'adminProdutos' || $value->acesso === 'cadastrarProdutos') {
@@ -68,7 +68,7 @@ class ProdutosPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user)
+    public function update(User $user): Response|bool
     {
         foreach ($user->acessos as $value) {
             if ($value->acesso === 'adminProdutos' || $value->acesso === 'atualizarProdutos') {
@@ -83,10 +83,9 @@ class ProdutosPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Produtos  $produtos
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Produtos $produtos)
+    public function delete(User $user): Response|bool
     {
         foreach ($user->acessos as $value) {
             if ($value->acesso === 'adminProdutos' || $value->acesso === 'deletarProdutos') {

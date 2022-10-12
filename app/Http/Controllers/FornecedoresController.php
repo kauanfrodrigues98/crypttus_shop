@@ -60,11 +60,13 @@ class FornecedoresController extends Controller
      * Display the specified resource.
      *
      * @param \App\Models\Fornecedores $fornecedores
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(Fornecedores $fornecedores)
+    public function show(Fornecedores $fornecedores, int $id)
     {
-        //
+        $fornecedor = $fornecedores->find($id);
+
+        return view('fornecedores.update')->with(['fornecedorId' => $id, 'fornecedor' => $fornecedor, 'ufs' => FuncoesHelpers::ESTADOS_BRASILEIROS]);
     }
 
     /**
@@ -83,22 +85,44 @@ class FornecedoresController extends Controller
      *
      * @param \App\Http\Requests\UpdateFornecedoresRequest $request
      * @param \App\Models\Fornecedores $fornecedores
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateFornecedoresRequest $request, Fornecedores $fornecedores)
+    public function update(UpdateFornecedoresRequest $request)
     {
-        //
+        $service = FornecedoresServices::update($request->fornecedorId, $request);
+
+        Session::flash('message', $service->getContent());
+
+        if ($service->getStatusCode() !== 200) {
+            Session::flash('status', 'danger');
+            return Response()->redirectToRoute('fornecedores.index');
+        }
+
+        Session::flash('status', 'success');
+
+        return Response()->redirectToRoute('fornecedores.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Fornecedores $fornecedores
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Fornecedores $fornecedores)
+    public function destroy(int $id)
     {
-        //
+        $service = FornecedoresServices::destroy($id);
+
+        Session::flash('message', $service->getContent());
+
+        if ($service->getStatusCode() !== 200) {
+            Session::flash('status', 'danger');
+            return Response()->redirectToRoute('fornecedores.index');
+        }
+
+        Session::flash('status', 'success');
+
+        return Response()->redirectToRoute('fornecedores.index');
     }
 
     public function get(Request $request)

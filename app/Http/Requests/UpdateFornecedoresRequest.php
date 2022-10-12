@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Fornecedores;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateFornecedoresRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateFornecedoresRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->can('update', Fornecedores::class);
     }
 
     /**
@@ -24,7 +25,7 @@ class UpdateFornecedoresRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'razao_social' => 'required',
         ];
     }
 }

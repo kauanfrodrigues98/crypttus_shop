@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProdutosRequest;
 use App\Http\Requests\UpdateProdutosRequest;
 use App\Models\Produtos;
 use App\Services\ProdutosServices;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,7 +15,7 @@ class ProdutosController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -26,7 +27,7 @@ class ProdutosController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -66,7 +67,7 @@ class ProdutosController extends Controller
     {
         $produto = ProdutosServices::show($id);
 
-        return view('produtos.show')->with(['produto' => $produto]);
+        return view('produtos.show')->with(['produtoId' => $id, 'produto' => $produto]);
     }
 
     /**
@@ -83,13 +84,24 @@ class ProdutosController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateProdutosRequest  $request
-     * @param  \App\Models\Produtos  $produtos
-     * @return \Illuminate\Http\Response
+     * @param \App\Http\Requests\UpdateProdutosRequest $request
+     * @param \App\Models\Produtos $produtos
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateProdutosRequest $request, Produtos $produtos)
+    public function update(UpdateProdutosRequest $request): RedirectResponse
     {
-        //
+        $service = ProdutosServices::update($request->produtoId, $request);
+
+        Session::flash('message', $service->getContent());
+
+        if ($service->getStatusCode() !== 200) {
+            Session::flash('status', 'danger');
+            return Response()->redirectToRoute('produtos.index');
+        }
+
+        Session::flash('status', 'success');
+
+        return Response()->redirectToRoute('produtos.index');
     }
 
     /**

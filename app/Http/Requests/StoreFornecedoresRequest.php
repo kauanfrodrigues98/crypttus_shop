@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Fornecedores;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreFornecedoresRequest extends FormRequest
@@ -13,7 +14,7 @@ class StoreFornecedoresRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->can('create', Fornecedores::class);
     }
 
     /**

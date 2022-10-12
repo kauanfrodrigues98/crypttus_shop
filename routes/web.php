@@ -13,7 +13,7 @@ use App\Http\Controllers\{ClientesController,
     UserController,
     VendasController,
 };
-use App\Models\{Clientes, User,};
+use App\Models\{Clientes, Fornecedores, Produtos, User,};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,16 +45,17 @@ Route::middleware('auth')->group(function() {
     Route::prefix('clientes')->group(function () {
         Route::get('index', [ClientesController::class, 'index'])->name('clientes.index')->can('view', Clientes::class);
         Route::get('cadastro', [ClientesController::class, 'create'])->name('clientes.create')->can('create', Clientes::class);
-        Route::post('store', [ClientesController::class, 'store'])->name('clientes.store')->can('store', Clientes::class);
+        Route::post('store', [ClientesController::class, 'store'])->name('clientes.store')->can('create', Clientes::class);
         Route::get('detalhes/{id}', [ClientesController::class, 'show'])->name('clientes.show')->can('update', Clientes::class);
         Route::post('update', [ClientesController::class, 'update'])->name('clientes.update')->can('update', Clientes::class);
     });
 
     Route::prefix('produtos')->group(function () {
-        Route::get('index', [ProdutosController::class, 'index'])->name('produtos.index');
-        Route::get('cadastro', [ProdutosController::class, 'create'])->name('produtos.create');
-        Route::post('store', [ProdutosController::class, 'store'])->name('produtos.store');
-        Route::get('detalhes/{id}', [ProdutosController::class, 'show'])->name('produtos.show');
+        Route::get('index', [ProdutosController::class, 'index'])->name('produtos.index')->can('view', Produtos::class);
+        Route::get('cadastro', [ProdutosController::class, 'create'])->name('produtos.create')->can('create', Produtos::class);
+        Route::post('store', [ProdutosController::class, 'store'])->name('produtos.store')->can('create', Produtos::class);
+        Route::get('detalhes/{id}', [ProdutosController::class, 'show'])->name('produtos.show')->can('update', Produtos::class);
+        Route::post('update', [ProdutosController::class, 'update'])->name('produtos.update')->can('update', Produtos::class);
     });
 
     Route::prefix('tamanhos')->group(function () {
@@ -96,9 +97,12 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::prefix('fornecedores')->group(function () {
-        Route::get('index', [FornecedoresController::class, 'index'])->name('fornecedores.index');
-        Route::get('cadastro', [FornecedoresController::class, 'create'])->name('fornecedores.create');
-        Route::post('store', [FornecedoresController::class, 'store'])->name('fornecedores.store');
+        Route::get('index', [FornecedoresController::class, 'index'])->name('fornecedores.index')->can('view', Fornecedores::class);
+        Route::get('cadastro', [FornecedoresController::class, 'create'])->name('fornecedores.create')->can('create', Fornecedores::class);
+        Route::post('store', [FornecedoresController::class, 'store'])->name('fornecedores.store')->can('create', Fornecedores::class);
+        Route::get('detalhes/{id}', [FornecedoresController::class, 'show'])->name('fornecedores.show')->can('update', Fornecedores::class);
+        Route::post('update', [FornecedoresController::class, 'update'])->name('fornecedores.update')->can('update', Fornecedores::class);
+        Route::get('destroy/{id}', [FornecedoresController::class, 'destroy'])->name('fornecedores.destroy')->can('delete', Fornecedores::class);
     });
 
     Route::prefix('colecoes')->group(function () {
