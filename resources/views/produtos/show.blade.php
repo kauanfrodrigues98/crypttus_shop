@@ -4,7 +4,7 @@
 
 @extends('app')
 
-@section('tab-title', 'Produtos')
+@section('tab-title', 'Detalhes Produto')
 
 @section('content')
     @include('components.alert_request')
@@ -12,7 +12,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ url()->previous() }}">Produtos</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Cadastro</li>
+            <li class="breadcrumb-item active" aria-current="page">Detalhes</li>
         </ol>
     </nav>
 
