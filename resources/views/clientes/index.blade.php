@@ -31,7 +31,9 @@
                     @can('create', 'App\Models\Clientes')
                         <a class="dropdown-item" href="{{ route('clientes.create') }}">Novo Cliente</a>
                     @endcan
-                    <a class="dropdown-item" href="#">Exportar PDF</a>
+                    @can('view', 'App\Models\Clientes')
+                        <a class="dropdown-item" href="{{ route('clientes.pdf') }}" target="_blank">Exportar PDF</a>
+                    @endcan
                     <a class="dropdown-item" href="#">Exportar Excel</a>
                 </div>
             </div>

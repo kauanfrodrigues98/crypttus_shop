@@ -7,6 +7,10 @@ use App\Http\Requests\StoreClientesRequest;
 use App\Http\Requests\UpdateClientesRequest;
 use App\Models\Clientes;
 use App\Services\ClientesServices;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -15,9 +19,9 @@ class ClientesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(): View
     {
         $clientes = ClientesServices::findAll();
 
@@ -27,9 +31,9 @@ class ClientesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
-    public function create()
+    public function create(): View
     {
         return view('clientes.create')->with(['ufs' => FuncoesHelpers::ESTADOS_BRASILEIROS]);
     }
@@ -37,19 +41,18 @@ class ClientesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreClientesRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param \App\Http\Requests\StoreClientesRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreClientesRequest $request)
+    public function store(StoreClientesRequest $request): RedirectResponse
     {
         $service = ClientesServices::store($request);
 
         Session::flash('message', $service->getContent());
 
-        if($service->getStatusCode() !== 200)
-        {
+        if ($service->getStatusCode() !== 200) {
             Session::flash('status', 'danger');
-            return back()->withInput();
+            return Response()->redirectToRoute('clientes.index');
         }
 
         Session::flash('status', 'success');
@@ -61,9 +64,9 @@ class ClientesController extends Controller
      * Display the specified resource.
      *
      * @param \App\Models\Clientes $clientes
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\View\View
      */
-    public function show(Clientes $clientes, int $id)
+    public function show(Clientes $clientes, int $id): View
     {
         $cliente = $clientes->find($id);
 
@@ -88,7 +91,7 @@ class ClientesController extends Controller
      * @param \App\Models\Clientes $clientes
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateClientesRequest $request)
+    public function update(UpdateClientesRequest $request): RedirectResponse
     {
         $service = ClientesServices::update($request->clienteId, $request);
 
@@ -118,5 +121,23 @@ class ClientesController extends Controller
     public function get(Request $request)
     {
         return ClientesServices::get($request);
+    }
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function pdf(): Response
+    {
+        $clientes = ClientesServices::findAll();
+
+        $data = [
+            'title' => 'Relatório de Clientes',
+            'date' => date('d/m/Y'),
+            'clientes' => $clientes
+        ];
+
+        $pdf = PDF::loadView('clientes.pdf', $data);
+
+        return $pdf->setPaper('A4')->stream('Relatorio_de_clientes_' . date('d/m/Y') . '.pdf');
     }
 }
