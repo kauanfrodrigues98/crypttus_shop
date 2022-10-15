@@ -69,7 +69,7 @@
                                             <div class="dropdown-header">Ações</div>
                                             @can('update', 'App\Models\Sangrias')
                                                 <a class="dropdown-item"
-                                                   href="{{ route('sangrias.show', ['id' => $sangria->id]) }}">Detalhes</a>
+                                                   href="{{ route('clientes.show', ['id' => $sangria->id]) }}">Detalhes</a>
                                             @endcan
                                             @can('delete', 'App\Models\Sangrias')
                                                 <a class="dropdown-item" href="#">Deletar</a>

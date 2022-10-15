@@ -42,7 +42,7 @@ class SangriasController extends Controller
      */
     public function store(StoreSangriasRequest $request): RedirectResponse
     {
-        $service = SangriasServices::store($request->all());
+        $service = SangriasServices::store($request);
 
         Session::flash('message', $service->getContent());
 

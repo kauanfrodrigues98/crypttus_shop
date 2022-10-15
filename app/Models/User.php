@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Acessos::class, 'user_id', 'id');
     }
+
+    public function sangrias()
+    {
+        return $this->hasMany(Sangrias::class, 'user_id', 'id');
+    }
 }
