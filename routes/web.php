@@ -4,11 +4,14 @@ use App\Http\Controllers\{ClientesController,
     CodigoGradesController,
     ColecoesController,
     CoresController,
+    DespesasAvulsasController,
     EstoquesController,
     FornecedoresController,
     HomeController,
     ProdutosController,
     RecebimentosController,
+    SangriasController,
+    SuprimentoCaixasController,
     TamanhosController,
     UserController,
     VendasController,
@@ -17,13 +20,16 @@ use App\Models\{Clientes,
     CodigoGrades,
     Colecoes,
     Cores,
+    DespesasAvulsas,
     Estoques,
     Fornecedores,
     Produtos,
     Recebimentos,
+    Sangrias,
+    SuprimentoCaixas,
     Tamanhos,
     User,
-    Vendas
+    Vendas,
 };
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +57,8 @@ Route::middleware('auth')->group(function() {
         Route::get('index', [UserController::class, 'index'])->name('user.index')->can('view', User::class);
         Route::get('cadastro', [UserController::class, 'create'])->name('user.create')->can('create', User::class);
         Route::post('store', [UserController::class, 'store'])->name('user.store')->can('create', User::class);
+        Route::get('detalhes/{id}', [UserController::class, 'show'])->name('user.show')->can('update', User::class);
+        Route::post('update', [UserController::class, 'update'])->name('user.update')->can('update', User::class);
     });
 
     Route::prefix('clientes')->group(function () {
@@ -121,6 +129,24 @@ Route::middleware('auth')->group(function() {
         Route::get('index', [ColecoesController::class, 'index'])->name('colecoes.index')->can('view', Colecoes::class);
         Route::get('cadastro', [ColecoesController::class, 'create'])->name('colecoes.create')->can('create', Colecoes::class);
         Route::post('store', [ColecoesController::class, 'store'])->name('colecoes.store')->can('create', Colecoes::class);
+    });
+
+    Route::prefix('sangrias')->group(function () {
+        Route::get('index', [SangriasController::class, 'index'])->name('sangrias.index')->can('view', Sangrias::class);
+        Route::get('cadastro', [SangriasController::class, 'create'])->name('sangrias.create')->can('create', Sangrias::class);
+        Route::post('store', [SangriasController::class, 'store'])->name('sangrias.store')->can('create', Sangrias::class);
+    });
+
+    Route::prefix('despesas_avulsas')->group(function () {
+        Route::get('index', [DespesasAvulsasController::class, 'index'])->name('despesas_avulsas.index')->can('view', DespesasAvulsas::class);
+        Route::get('cadastro', [DespesasAvulsasController::class, 'create'])->name('despesas_avulsas.create')->can('create', DespesasAvulsas::class);
+        Route::post('store', [DespesasAvulsasController::class, 'store'])->name('despesas_avulsas.store')->can('create', DespesasAvulsas::class);
+    });
+
+    Route::prefix('suprimento_caixa')->group(function () {
+        Route::get('index', [SuprimentoCaixasController::class, 'index'])->name('suprimento_caixa.index')->can('view', SuprimentoCaixas::class);
+        Route::get('cadastro', [SuprimentoCaixasController::class, 'create'])->name('suprimento_caixa.create')->can('create', SuprimentoCaixas::class);
+        Route::post('store', [SuprimentoCaixasController::class, 'store'])->name('suprimento_caixa.store')->can('create', SuprimentoCaixas::class);
     });
 });
 

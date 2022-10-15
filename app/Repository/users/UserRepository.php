@@ -2,43 +2,20 @@
 
 namespace App\Repository\users;
 
+use App\Repository\BaseRepository;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
-class UserRepository implements UserInterface
+class UserRepository extends BaseRepository implements UserInterface
 {
-    private $model;
-
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
-    }
-
     public function findAll(): Collection
     {
         // TODO: Implement findAll() method.
         return $this->model->select('id', 'nome', 'email', 'created_at')->get();
     }
 
-    public function store(array $dados)
+    public function show(int $id)
     {
-        // TODO: Implement store() method.
-        return $this->model->create($dados);
-    }
-
-    public function update(int $id, array $dados)
-    {
-        // TODO: Implement update() method.
-    }
-
-    public function destroy(int $id)
-    {
-        // TODO: Implement destroy() method.
-    }
-
-    public function findOne(int $id)
-    {
-        // TODO: Implement findOne() method.
+        return $this->model->find($id);
     }
 
     public function get(string $search)
@@ -50,4 +27,5 @@ class UserRepository implements UserInterface
         }
         return $this->model->select('id', 'nome')->where('id', '<>', 1)->get();
     }
+
 }

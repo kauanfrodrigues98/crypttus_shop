@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Exceptions\CustomException;
 use App\Models\User;
 use App\Repository\users\UserRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -77,6 +78,55 @@ class UserServices
 
             return (new UserRepository(new User))->get($search);
         } catch (\Exception $e) {
+            return Response($e->getMessage(), 430);
+        }
+    }
+
+    public static function show(int $id)
+    {
+        try {
+            $repository = (new UserRepository(new User))->show($id);
+
+            if (!$repository) {
+                throw new CustomException('Não conseguimos localizar o usuário solicitado.', 430);
+            }
+
+            return $repository;
+        } catch (CustomException $e) {
+            return Response($e->getMessage(), $e->getCode());
+        } catch (\Throwable $e) {
+            return Response($e->getMessage(), 430);
+        }
+    }
+
+    public static function update(int $id, Request $request)
+    {
+        try {
+            $dados['nome'] = $request->nome;
+            $dados['email'] = $request->email;
+            $dados['usuario'] = $request->usuario;
+
+            $repository = (new UserRepository(new User))->update($id, $dados);
+
+            if (!$repository) {
+                throw new CustomException('Não foi possível atualizar dados do funcionário.');
+            }
+
+            AcessosServices::destroy($id);
+
+            if (!empty($request->acessos)) {
+                foreach ($request->acessos as $acesso) {
+                    $data['user_id'] = $id;
+                    $data['acesso'] = $acesso;
+
+                    AcessosServices::store($data);
+                }
+            }
+
+            return Response('Funcionário atualizado com sucesso.', 200);
+        } catch (CustomException $e) {
+            return Response($e->getMessage(), $e->getCode());
+        } catch (\Throwable $e) {
             return Response($e->getMessage(), 430);
         }
     }

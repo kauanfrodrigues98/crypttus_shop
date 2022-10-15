@@ -269,6 +269,87 @@ class UserController extends Controller
                 'value' => 'deletarVendas',
             ],
         ],
+
+        'Sangrias' => [
+            [
+                'label' => 'Acesso Total',
+                'value' => 'adminSangrias',
+            ],
+            [
+                'label' => 'Relatório',
+                'value' => 'relatorioSangrias',
+            ],
+            [
+                'label' => 'Abrir Venda',
+                'value' => 'cadastrarSangrias',
+            ],
+            [
+                'label' => 'Atualizar',
+                'value' => 'atualizarSangrias',
+            ],
+            [
+                'label' => 'Finalizar',
+                'value' => 'finalizarSangrias',
+            ],
+            [
+                'label' => 'Deletar',
+                'value' => 'deletarSangrias',
+            ],
+        ],
+
+        'Despesas Avulsas' => [
+            [
+                'label' => 'Acesso Total',
+                'value' => 'adminDespesasAvulsas',
+            ],
+            [
+                'label' => 'Relatório',
+                'value' => 'relatorioDespesasAvulsas',
+            ],
+            [
+                'label' => 'Abrir Venda',
+                'value' => 'cadastrarDespesasAvulsas',
+            ],
+            [
+                'label' => 'Atualizar',
+                'value' => 'atualizarDespesasAvulsas',
+            ],
+            [
+                'label' => 'Finalizar',
+                'value' => 'finalizarDespesasAvulsas',
+            ],
+            [
+                'label' => 'Deletar',
+                'value' => 'deletarDespesasAvulsas',
+            ],
+        ],
+
+        'Suprimento Caixas' => [
+            [
+                'label' => 'Acesso Total',
+                'value' => 'adminSuprimentoCaixas',
+            ],
+            [
+                'label' => 'Relatório',
+                'value' => 'relatorioSuprimentoCaixas',
+            ],
+            [
+                'label' => 'Abrir Venda',
+                'value' => 'cadastrarSuprimentoCaixas',
+            ],
+            [
+                'label' => 'Atualizar',
+                'value' => 'atualizarSuprimentoCaixas',
+            ],
+            [
+                'label' => 'Finalizar',
+                'value' => 'finalizarSuprimentoCaixas',
+            ],
+            [
+                'label' => 'Deletar',
+                'value' => 'deletarSuprimentoCaixas',
+            ],
+        ],
     ];
 
     /**
@@ -311,7 +392,7 @@ class UserController extends Controller
 
         if ($service->getStatusCode() !== 200) {
             Session::flash('status', 'danger');
-            return back()->withInput($request->only(['usuario', 'senha']));
+            return Response()->redirectToRoute('user.index');
         }
 
         Session::flash('status', 'success');
@@ -322,24 +403,38 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
      */
-    public function show($id)
+    public function show(int $id): View
     {
-        //
+        $funcionario = UserServices::show($id);
+
+        foreach ($funcionario->acessos->toArray() as $access) {
+            $acessoAtual[] = $access['acesso'];
+        }
+
+        return view('funcionarios.update')->with(['user' => $funcionario, 'acessoAtual' => $acessoAtual, 'acessos' => self::ACESSOS]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request): RedirectResponse
     {
-        //
+        $service = UserServices::update($request->userId, $request);
+
+        Session::flash('message', $service->getContent());
+
+        if ($service->getStatusCode() !== 200) {
+            Session::flash('status', 'danger');
+            return Response()->redirectToRoute('user.index');
+        }
+
+        return Response()->redirectToRoute('user.index');
     }
 
     /**

@@ -8,13 +8,7 @@ interface UserInterface
 {
     public function findAll(): Collection;
 
-    public function store(array $dados);
-
-    public function update(int $id, array $dados);
-
-    public function destroy(int $id);
-
-    public function findOne(int $id);
+    public function show(int $id);
 
     public function get(string $search);
 }

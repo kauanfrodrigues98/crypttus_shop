@@ -24,4 +24,21 @@ class AcessosServices
             return Response($e->getMessage(), 430);
         }
     }
+
+    public static function destroy(int $id)
+    {
+        try {
+            $repository = (new AcessosRepository(new Acessos))->destroy($id);
+
+            if (!$repository) {
+                throw new CustomException('Não conseguimos excluir os acessos solicitados.', 430);
+            }
+
+            return true;
+        } catch (CustomException $e) {
+            return Response($e->getMessage(), $e->getCode());
+        } catch (\Throwable $e) {
+            return Response($e->getMessage(), 430);
+        }
+    }
 }

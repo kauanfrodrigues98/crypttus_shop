@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSangriasRequest;
 use App\Http\Requests\UpdateSangriasRequest;
 use App\Models\Sangrias;
+use App\Services\SangriasServices;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class SangriasController extends Controller
 {
@@ -13,9 +17,11 @@ class SangriasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
-        //
+        $sangrias = SangriasServices::findAll();
+
+        return view('sangrias.index')->with(['sangrias' => $sangrias]);
     }
 
     /**
@@ -25,7 +31,7 @@ class SangriasController extends Controller
      */
     public function create()
     {
-        //
+        return view('sangrias.create');
     }
 
     /**
@@ -34,9 +40,17 @@ class SangriasController extends Controller
      * @param \App\Http\Requests\StoreSangriasRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSangriasRequest $request)
+    public function store(StoreSangriasRequest $request): RedirectResponse
     {
-        //
+        $service = SangriasServices::store($request->all());
+
+        Session::flash('message', $service->getContent());
+
+        if ($service->getStatusCode() !== 200) {
+            Session::flash('status', 'danger');
+        }
+
+        return Response()->redirectToRoute('sangrias.index');
     }
 
     /**

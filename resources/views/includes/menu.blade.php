@@ -88,7 +88,7 @@ const MENUS = [
             [
                 'name' => 'Suprimento Caixa',
                 'route' => 'suprimento_caixa.index',
-                'modelAccess' => 'App\Models\SuprimentoCaixa',
+                'modelAccess' => 'App\Models\SuprimentoCaixas',
             ],
         ],
     ],

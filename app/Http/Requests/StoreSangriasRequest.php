@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Sangrias;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSangriasRequest extends FormRequest
@@ -13,7 +14,7 @@ class StoreSangriasRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->can('create', Sangrias::class);
     }
 
     /**
@@ -24,7 +25,9 @@ class StoreSangriasRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'data' => 'required',
+            'descricao' => 'required',
+            'total' => 'required',
         ];
     }
 }
