@@ -70,6 +70,29 @@ const MENUS = [
         'modelAccess' => 'App\Models\Estoque',
     ],
     [
+        'name' => 'Financeiro',
+        'route' => '',
+        'icon' => 'fas fa-fw fa-money-bill-wave',
+        'submenu' => 'true',
+        'sub' => [
+            [
+                'name' => 'Sangrias',
+                'route' => 'sangrias.index',
+                'modelAccess' => 'App\Models\Sangrias',
+            ],
+            [
+                'name' => 'Despesas Avulsas',
+                'route' => 'despesas_avulsas.index',
+                'modelAccess' => 'App\Models\DespesasAvulsas',
+            ],
+            [
+                'name' => 'Suprimento Caixa',
+                'route' => 'suprimento_caixa.index',
+                'modelAccess' => 'App\Models\SuprimentoCaixa',
+            ],
+        ],
+    ],
+    [
         'name' => 'Vendas',
         'route' => 'vendas.index',
         'icon' => 'fas fa-solid fa-box-open',
@@ -113,12 +136,14 @@ const MENUS = [
         @foreach(MENUS as $menu)
             @if($menu['submenu'])
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                       aria-expanded="true" aria-controls="collapseTwo">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                       data-target="#collapse-{{ $menu['name'] }}"
+                       aria-expanded="true" aria-controls="collapse-{{ $menu['name'] }}">
                         <i class="{{ $menu['icon'] }}"></i>
                         <span>{{ $menu['name'] }}</span>
                     </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div id="collapse-{{ $menu['name'] }}" class="collapse" aria-labelledby="headingTwo"
+                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Submenu</h6>
                             @for($index = 0; $index < count($menu['sub']); $index++)
@@ -135,8 +160,9 @@ const MENUS = [
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route($menu['route']) }}">
                             <i class="{{ $menu['icon'] }}"></i>
-                            <span>{{ $menu['name'] }}</span></a>
-                </li>
+                            <span>{{ $menu['name'] }}</span>
+                        </a>
+                    </li>
                 @endcan
             @endif
         @endforeach
