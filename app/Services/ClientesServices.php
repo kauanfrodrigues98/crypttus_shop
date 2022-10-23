@@ -41,10 +41,10 @@ class ClientesServices
                 throw new CustomException('Não foi possivel cadastrar cliente.', 430);
             }
 
-            return Response('Funcionário cadastrado com sucesso.', 200);
+            return Response('Cliente cadastrado com sucesso.', 200);
         } catch (CustomException $e) {
             return Response($e->getMessage(), 430);
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             return Response($e->getMessage(), 430);
         }
     }

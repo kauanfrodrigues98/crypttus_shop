@@ -15,6 +15,7 @@ use App\Http\Controllers\{ClientesController,
     TamanhosController,
     UserController,
     VendasController,
+    ConfiguracoesController,
 };
 use App\Models\{Clientes,
     CodigoGrades,
@@ -148,19 +149,21 @@ Route::middleware('auth')->group(function() {
         Route::get('cadastro', [SuprimentoCaixasController::class, 'create'])->name('suprimento_caixa.create')->can('create', SuprimentoCaixas::class);
         Route::post('store', [SuprimentoCaixasController::class, 'store'])->name('suprimento_caixa.store')->can('create', SuprimentoCaixas::class);
     });
-});
 
-Route::prefix('get')->group(function () {
-    Route::post('cores', [CoresController::class, 'get'])->name('get.cores');
-    Route::post('tamanhos', [TamanhosController::class, 'get'])->name('get.tamanhos');
-    Route::post('produtos', [ProdutosController::class, 'get'])->name('get.produtos');
-    Route::post('detalhes/produto', [ProdutosController::class, 'getDetalhes'])->name('get.detalhes.produtos');
-    Route::post('funcionarios', [UserController::class, 'get'])->name('get.funcionarios');
-    Route::post('clientes', [ClientesController::class, 'get'])->name('get.clientes');
-    Route::post('fornecedores', [FornecedoresController::class, 'get'])->name('get.fornecedores');
-    Route::post('codigo_grade', [CodigoGradesController::class, 'get'])->name('get.codigo_grade');
-    Route::post('colecao', [ColecoesController::class, 'get'])->name('get.colecao');
-    Route::post('venda/codigo_grade', [CodigoGradesController::class, 'getForVenda'])->name('get.codigo_grade');
+    Route::get('configuracoes', [ConfiguracoesController::class, 'index'])->name('configuracoes');
+
+    Route::prefix('get')->group(function () {
+        Route::post('cores', [CoresController::class, 'get'])->name('get.cores');
+        Route::post('tamanhos', [TamanhosController::class, 'get'])->name('get.tamanhos');
+        Route::post('produtos', [ProdutosController::class, 'get'])->name('get.produtos');
+        Route::post('detalhes/produto', [ProdutosController::class, 'getDetalhes'])->name('get.detalhes.produtos');
+        Route::post('funcionarios', [UserController::class, 'get'])->name('get.funcionarios');
+        Route::post('clientes', [ClientesController::class, 'get'])->name('get.clientes');
+        Route::post('fornecedores', [FornecedoresController::class, 'get'])->name('get.fornecedores');
+        Route::post('codigo_grade', [CodigoGradesController::class, 'get'])->name('get.codigo_grade');
+        Route::post('colecao', [ColecoesController::class, 'get'])->name('get.colecao');
+        Route::post('venda/codigo_grade', [CodigoGradesController::class, 'getForVenda'])->name('get.codigo_grade');
+    });
 });
 
 Route::post('tem_estoque', [EstoquesController::class, 'temEstoque'])->name('tem_estoque');
