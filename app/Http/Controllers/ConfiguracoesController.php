@@ -15,7 +15,7 @@ class ConfiguracoesController extends Controller
      */
     public function index()
     {
-        //
+        return view('configuracoes');
     }
 
     /**
