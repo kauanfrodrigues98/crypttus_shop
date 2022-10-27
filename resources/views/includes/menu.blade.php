@@ -90,6 +90,11 @@ const MENUS = [
                 'route' => 'suprimento_caixa.index',
                 'modelAccess' => 'App\Models\SuprimentoCaixas',
             ],
+            [
+                'name' => 'Movimentação Caixa',
+                'route' => 'movimentacao_caixa.index',
+                'modelAccess' => 'App\Models\MovimentacaoCaixa'
+            ],
         ],
     ],
     [
@@ -108,7 +113,7 @@ const MENUS = [
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled toggled" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -120,7 +125,7 @@ const MENUS = [
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{ route('home') }}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>

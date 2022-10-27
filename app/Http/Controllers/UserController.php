@@ -280,7 +280,7 @@ class UserController extends Controller
                 'value' => 'relatorioSangrias',
             ],
             [
-                'label' => 'Abrir Venda',
+                'label' => 'Lançar Sangrias',
                 'value' => 'cadastrarSangrias',
             ],
             [
@@ -307,7 +307,7 @@ class UserController extends Controller
                 'value' => 'relatorioDespesasAvulsas',
             ],
             [
-                'label' => 'Abrir Venda',
+                'label' => 'Lançar Despesas Avulsas',
                 'value' => 'cadastrarDespesasAvulsas',
             ],
             [
@@ -334,7 +334,7 @@ class UserController extends Controller
                 'value' => 'relatorioSuprimentoCaixas',
             ],
             [
-                'label' => 'Abrir Venda',
+                'label' => 'Lançar Suprimento Caixa',
                 'value' => 'cadastrarSuprimentoCaixas',
             ],
             [
@@ -348,6 +348,33 @@ class UserController extends Controller
             [
                 'label' => 'Deletar',
                 'value' => 'deletarSuprimentoCaixas',
+            ],
+        ],
+
+        'Movimentação Caixa' => [
+            [
+                'label' => 'Acesso Total',
+                'value' => 'adminMovimentacaoCaixa',
+            ],
+            [
+                'label' => 'Relatório',
+                'value' => 'relatorioMovimentacaoCaixa',
+            ],
+            [
+                'label' => 'Lançar Suprimento Caixa',
+                'value' => 'cadastrarMovimentacaoCaixa',
+            ],
+            [
+                'label' => 'Atualizar',
+                'value' => 'atualizarMovimentacaoCaixa',
+            ],
+            [
+                'label' => 'Finalizar',
+                'value' => 'finalizarMovimentacaoCaixa',
+            ],
+            [
+                'label' => 'Deletar',
+                'value' => 'deletarMovimentacaoCaixa',
             ],
         ],
     ];

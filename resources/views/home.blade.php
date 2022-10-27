@@ -9,6 +9,7 @@
         <div
             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Dashboard</h6>
+            <!--
             <div class="dropdown no-arrow">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -23,12 +24,11 @@
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </div>
+            -->
         </div>
         <!-- Card Body -->
         <div class="card-body">
-            Dropdown menus can be placed in the card header in order to extend the functionality
-            of a basic card. In this dropdown card example, the Font Awesome vertical ellipsis
-            icon in the card header can be clicked on in order to toggle a dropdown menu.
+            Seja bem vindo ao sistema de automação comercial, em breve você verá nessa tela, alguns atalhos para facilitar a sua vida.
         </div>
     </div>
 @endsection

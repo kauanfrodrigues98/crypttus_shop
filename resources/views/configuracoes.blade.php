@@ -37,9 +37,12 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-1">
                     <label for="usa_caixa_inicial">Usa Caixa Inicial</label>
-                    <select name="usa_caixa_inicial" id="usa_caixa_inicial" class="form-custom"></select>
+                    <select name="usa_caixa_inicial" id="usa_caixa_inicial" class="custom-select custom-select-sm">
+                        <option value="Sim">Sim</option>
+                        <option value="Não">Não</option>
+                    </select>
                 </div>
             </div>
         </div>
