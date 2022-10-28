@@ -37,3 +37,7 @@ ol.breadcrumb {
     display: flex;
     justify-content: center;
 }
+
+div.dataTables_wrapper {
+    overflow-x: auto;
+}

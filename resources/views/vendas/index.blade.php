@@ -120,6 +120,9 @@
                                             @if($venda->status === 'Aberto')
                                                 <a class="dropdown-item" href="#">Deletar</a>
                                             @endif
+                                            @if($venda->status === 'Finalizado')
+                                                <a class="dropdown-item" target="_blank" href="{{ route('vendas.cupomVenda',['id' => $venda->id]) }}">Reimpressão</a>
+                                            @endif
                                         </div>
                                     </div>
                                 </td>

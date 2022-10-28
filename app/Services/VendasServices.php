@@ -9,6 +9,7 @@ use App\Models\Vendas;
 use App\Repository\formaPagamentos\FormaPagamentosRepository;
 use App\Repository\produtoVendas\ProdutoVendasRepository;
 use App\Repository\vendas\VendasRepository;
+use Illuminate\Support\Facades\Session;
 
 class VendasServices
 {
@@ -73,6 +74,8 @@ class VendasServices
                     }
                 }
             }
+
+            Session::flash('idVenda', $vendaId);
 
             return Response('Venda registrada com sucesso.', 200);
         } catch (CustomException $e) {

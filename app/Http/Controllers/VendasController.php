@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateVendasRequest;
 use App\Models\Vendas;
 use App\Services\VendasServices;
 use Illuminate\Support\Facades\Session;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class VendasController extends Controller
 {
@@ -88,7 +89,7 @@ class VendasController extends Controller
 
         Session::flash('status', 'success');
 
-        return Response()->redirectToRoute('vendas.index');
+        return Response()->redirectToRoute('vendas.cupomVenda', ['id' => Session::get('idVenda')]);
     }
 
     /**
@@ -150,5 +151,21 @@ class VendasController extends Controller
     public function destroy(Vendas $vendas)
     {
         //
+    }
+
+    public function cupomVenda(int $id)
+    {
+        $venda = VendasServices::find($id);
+
+        $data = [
+            'title' => 'Cupom de Venda',
+            'date' => date('d/m/Y'),
+            'venda' => $venda
+        ];
+
+        $pdf = PDF::loadView('vendas.cupomVenda', $data);
+
+        return $pdf->setPaper('B7')->stream('Cupom_Venda_' . $id . '_' . date('d/m/Y') . '.pdf');
+        //return $pdf->setPaper([0 , 0 , 226.77 , 226.77])->stream('Cupom_Venda_' . $id . '_' . date('d/m/Y') . '.pdf');
     }
 }

@@ -102,6 +102,7 @@ Route::middleware('auth')->group(function() {
         Route::get('cadastro', [VendasController::class, 'create'])->name('vendas.create')->can('create', Vendas::class);
         Route::post('store', [VendasController::class, 'store'])->name('vendas.store')->can('create', Vendas::class);
         Route::get('detalhes/{id}', [VendasController::class, 'show'])->name('vendas.show')->can('update', Vendas::class);
+        Route::get('cupom_venda/{id}', [VendasController::class, 'cupomVenda'])->name('vendas.cupomVenda')->can('update', Vendas::class);
     });
 
     Route::prefix('estoque')->group(function () {
