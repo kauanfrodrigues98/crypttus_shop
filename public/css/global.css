@@ -38,6 +38,6 @@ ol.breadcrumb {
     justify-content: center;
 }
 
-div.dataTables_wrapper {
+div.dataTables_wrapper, .dataTable {
     overflow-x: auto;
 }
