@@ -6,11 +6,13 @@ use App\Helpers\FuncoesHelpers;
 use App\Http\Requests\StoreClientesRequest;
 use App\Http\Requests\UpdateClientesRequest;
 use App\Models\Clientes;
+use App\Notifications\ClientesNotification;
 use App\Services\ClientesServices;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Request;
 

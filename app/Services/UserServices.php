@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Exceptions\CustomException;
 use App\Models\User;
+use App\Notifications\UserNotification;
 use App\Repository\users\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +21,8 @@ class UserServices
             if(!Auth::attempt($dados)) {
                 throw new CustomException('Usuário não localizado em nosso sistema.');
             }
+
+            self::notifyLogin();
 
             return Response('Login efetuado com sucesso!', 200);
         } catch(CustomException $e) {
@@ -129,5 +132,11 @@ class UserServices
         } catch (\Throwable $e) {
             return Response($e->getMessage(), 430);
         }
+    }
+
+    private static function notifyLogin()
+    {
+        $user = User::find(Auth::id());
+        $user->notify(new UserNotification($user));
     }
 }

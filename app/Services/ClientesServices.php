@@ -6,7 +6,9 @@ use App\Exceptions\CustomException;
 use App\Helpers\FuncoesHelpers;
 use App\Http\Requests\UpdateClientesRequest;
 use App\Models\Clientes;
+use App\Notifications\ClientesNotification;
 use App\Repository\clientes\ClientesRepository;
+use Illuminate\Support\Facades\Notification;
 
 class ClientesServices
 {
@@ -40,6 +42,8 @@ class ClientesServices
             if(!$repository) {
                 throw new CustomException('Não foi possivel cadastrar cliente.', 430);
             }
+
+            self::sendNotification($repository->id);
 
             return Response('Cliente cadastrado com sucesso.', 200);
         } catch (CustomException $e) {
@@ -84,5 +88,20 @@ class ClientesServices
         } catch (\Throwable $e) {
             return Response($e->getMessage(), 430);
         }
+    }
+
+    private static function sendNotification(int $id)
+    {
+        $cliente = Clientes::find($id);
+        $details = [
+            'greeting' => 'Novo cliente!',
+            'body' => 'Um novo cliente foi cadastrado.',
+            'thanks' => 'Obrigado pela preferência.',
+            'actionText' => 'Novo Cliente',
+            'actionURL' => url('/'),
+            'order_id' => 101,
+        ];
+
+        Notification::send($cliente, new ClientesNotification($details));
     }
 }
